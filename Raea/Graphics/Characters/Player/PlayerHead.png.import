@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/old_advent.png-8e1a86b8b1e5a6f77eb35e1920861082.stex"
+path="res://.import/PlayerHead.png-de282b5ed06e2267a4ea15a92e1f6d81.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://old_advent.png"
-dest_files=[ "res://.import/old_advent.png-8e1a86b8b1e5a6f77eb35e1920861082.stex" ]
+source_file="res://Graphics/Characters/Player/PlayerHead.png"
+dest_files=[ "res://.import/PlayerHead.png-de282b5ed06e2267a4ea15a92e1f6d81.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
