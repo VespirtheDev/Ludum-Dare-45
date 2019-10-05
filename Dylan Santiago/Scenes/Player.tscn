@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Godette_Run.png" type="Texture" id=2]
@@ -35,6 +35,30 @@ angular_velocity = 20.0
 angular_velocity_random = 1.0
 angular_velocity_curve = SubResource( 2 )
 orbit_velocity = -0.3
+orbit_velocity_random = 1.0
+linear_accel = -4.6
+linear_accel_random = 1.0
+radial_accel = -0.3
+radial_accel_random = 0.92
+tangential_accel_random = 1.0
+damping = 70.0
+damping_curve = SubResource( 6 )
+angle = 720.0
+angle_random = 1.0
+scale = 2.0
+scale_random = 1.0
+color_ramp = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=14]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 98, 0, 0 )
+initial_velocity = 4.0
+initial_velocity_random = 1.0
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+angular_velocity_curve = SubResource( 2 )
+orbit_velocity = 0.3
 orbit_velocity_random = 1.0
 linear_accel = -4.6
 linear_accel_random = 1.0
@@ -222,12 +246,25 @@ collision_mask = 29
 script = ExtResource( 1 )
 life = 3
 
-[node name="Running" type="Particles2D" parent="."]
+[node name="RunningRight" type="Particles2D" parent="."]
 modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
 position = Vector2( 1.09647, 13.1576 )
-amount = 80
+emitting = false
+amount = 10
+lifetime = 0.2
 explosiveness = 0.1
+local_coords = false
 process_material = SubResource( 7 )
+
+[node name="RunningLeft" type="Particles2D" parent="."]
+modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
+position = Vector2( 1.09647, 13.1576 )
+emitting = false
+amount = 10
+lifetime = 0.2
+explosiveness = 0.1
+local_coords = false
+process_material = SubResource( 14 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.037365, 2.03065 )
