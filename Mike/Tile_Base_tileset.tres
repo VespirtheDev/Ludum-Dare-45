@@ -1,0 +1,15 @@
+[gd_resource type="TileSet" load_steps=2 format=2]
+
+[ext_resource path="res://Tile Base.png" type="Texture" id=1]
+
+[resource]
+0/name = "Tile Base"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 588, 588 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 294, 294 )
+0/navigation_offset = Vector2( 294, 294 )
+0/shapes = [  ]
+0/z_index = 0
