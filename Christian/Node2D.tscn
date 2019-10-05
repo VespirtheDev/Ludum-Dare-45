@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://MovingPlatfrom.tscn" type="PackedScene" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MovingPlatfrom" parent="." instance=ExtResource( 1 )]
+position = Vector2( 162, 149 )
+speed = 100
+wait_time = 1
+
+[node name="TextureRect" parent="MovingPlatfrom" index="0"]
+margin_right = 175.0
+margin_bottom = 128.0
+
+[node name="Start" parent="MovingPlatfrom/Pos" index="0"]
+position = Vector2( 629, 336 )
+
+[node name="End" parent="MovingPlatfrom/Pos" index="1"]
+position = Vector2( 29, 103 )
+
+
+[editable path="MovingPlatfrom"]
