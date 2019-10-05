@@ -86,7 +86,7 @@ tracks/5/keys = {
 "values": [ SubResource( 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "Fall"
 length = 0.1
 tracks/0/type = "value"
@@ -174,8 +174,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Hurt"
+[sub_resource type="Animation" id=4]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -275,8 +274,7 @@ tracks/7/keys = {
 "values": [ SubResource( 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Idle"
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -364,7 +362,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 resource_name = "Jump"
 length = 0.1
 tracks/0/type = "value"
@@ -452,8 +450,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Run"
+[sub_resource type="Animation" id=7]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -529,7 +526,7 @@ tracks/5/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -605,7 +602,7 @@ tracks/5/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -872,13 +869,13 @@ hframes = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Crouch = SubResource( 2 )
-anims/Fall = SubResource( 8 )
-anims/Hurt = SubResource( 3 )
-anims/Idle = SubResource( 4 )
-anims/Jump = SubResource( 9 )
-anims/Run = SubResource( 5 )
-anims/climb = SubResource( 6 )
-anims/climb_idle = SubResource( 7 )
+anims/Fall = SubResource( 3 )
+anims/Hurt = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 6 )
+anims/Run = SubResource( 7 )
+anims/climb = SubResource( 8 )
+anims/climb_idle = SubResource( 9 )
 anims/slide_left = SubResource( 10 )
 anims/slide_right = SubResource( 11 )
 
@@ -966,7 +963,6 @@ stream = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
-
 [connection signal="area_entered" from="Detection" to="." method="_on_Detection_area_entered"]
 [connection signal="area_exited" from="Detection" to="." method="_on_Detection_area_exited"]
 [connection signal="timeout" from="SlideDuration" to="." method="_on_SlideDuration_timeout"]
