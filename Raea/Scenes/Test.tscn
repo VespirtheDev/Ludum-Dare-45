@@ -20,6 +20,20 @@ extents = Vector2( 11.3053, 1.49085 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 616.703, 5.44149 )
+run_speed = 150.0
+sprint_speed = 200.0
+crawl_speed = 50.0
+climb_speed = 50.0
+jump_speed = -400.0
+wall_jump_speed = -200.0
+can_run_left = true
+can_sprint = true
+can_jump = true
+can_crouch = true
+can_crawl = true
+can_climb = true
+slow_fall = true
+can_wall_jump = true
 
 [node name="Ground" type="StaticBody2D" parent="."]
 editor/display_folded = true

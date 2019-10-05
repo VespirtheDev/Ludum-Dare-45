@@ -198,12 +198,12 @@ func process_controls():
 	#Run & Sprint Movement
 	if right:
 		velocity.x = move_speed
-		$Visual.scale.x = 0.3
+		$Visual.scale.x = -0.3
 		facing = 1
 	
 	if left:
 		velocity.x = -move_speed
-		$Visual.scale.x = -0.3
+		$Visual.scale.x = 0.3
 		facing = -1
 	
 	if wallslide_right or wallslide_left:
