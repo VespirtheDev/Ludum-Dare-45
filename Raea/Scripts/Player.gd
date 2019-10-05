@@ -103,27 +103,27 @@ func set_state(new_state):
 
 func _physics_process(delta):
 	process_gravity(delta)
-	
+
 	process_controls() #Checks for inputs
-	
+
 	velocity = move_and_slide(velocity, Vector2(0, -1)) #Moves the player
-	
+
 	process_collisions()
-	
+
 	#Checks to see if the player should be falling down or Idleing
 	if state == "Jump":
 		if velocity.y > 0:
 			set_state("Fall")
-	
+
 	#Handles landing
 	if state in ["Jump", "Fall"] and is_on_floor():
 		set_state("Idle")
 		jump_count = jump_count_max
-	
+
 	#If the player's position is over 1,000 you die
 	if velocity.y > 1000:
 		set_state("Dead")
-	
+
 	process_animation()
 
 #Handles the gravity
@@ -198,12 +198,12 @@ func process_controls():
 	#Run & Sprint Movement
 	if right:
 		velocity.x = move_speed
-		$Sprite.flip_h = false
+		$Visual.scale.x = 0.3
 		facing = 1
 	
 	if left:
 		velocity.x = -move_speed
-		$Sprite.flip_h = true
+		$Visual.scale.x = -0.3
 		facing = -1
 	
 	if wallslide_right or wallslide_left:
