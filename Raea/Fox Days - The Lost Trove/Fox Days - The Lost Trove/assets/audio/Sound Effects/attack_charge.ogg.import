@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/attack_charge.ogg-b914d237b3e404b1440df8505061cacf.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Sound Effects/attack_charge.ogg"
+dest_files=[ "res://.import/attack_charge.ogg-b914d237b3e404b1440df8505061cacf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/walk_steps.ogg-853870524cd32537f3450769bee812ea.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Sound Effects/walk_steps.ogg"
+dest_files=[ "res://.import/walk_steps.ogg-853870524cd32537f3450769bee812ea.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
