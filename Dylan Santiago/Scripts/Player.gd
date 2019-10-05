@@ -81,17 +81,17 @@ func get_input():
 	if right:
 		velocity.x = move_speed
 		$Sprite.flip_h = false
-		$Particles.scale.x = 1
-		$Particles.show()
+		$Running.scale.x = 1
+		$Running.emitting = true
 		
 	if left:
 		velocity.x = -move_speed
 		$Sprite.flip_h = true
-		$Particles.scale.x = -1
-		$Particles.show()
+		$Running.scale.x = -1
+		$Running.emitting = true
 		
 	if velocity.x == 0:
-		$Particles.hide()
+		$Running.emitting = false
 	
 	if crouch:
 		if state in ["Crawl", "Crouch"]:
