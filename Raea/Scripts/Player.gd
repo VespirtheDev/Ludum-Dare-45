@@ -24,7 +24,7 @@ var move_speed = 130
 
 export (float) var gravity = 680
 var jump_count = 0
-var jump_count_max = 1
+var jump_count_max = 2
 var wall_jump_count = 0
 var wall_jump_count_max = 1
 
@@ -140,8 +140,9 @@ func process_gravity(delta):
 			gravity_mod = 500
 	
 	if state == "WallSlide":
-		gravity_mod = 0
-		velocity.y += ((gravity / 2) + gravity_mod) * delta #Handles gravity
+		if velocity.y > 0:
+			velocity.y = 0
+		velocity.y += 300 * delta #Handles gravity
 	else:
 		velocity.y += (gravity + gravity_mod) * delta #Handles gravity
 
@@ -211,16 +212,24 @@ func process_controls():
 	
 	#Wallslide Movement
 	if state == "WallSlide":
-		if facing == -1 and right:
+		if facing == -1 and right and wall_jump_count > 0:
+			set_state("Jump")
 			velocity.x = move_speed
 			velocity.y = wall_jump_speed
 			wall_jump_count -= 1
 			return
-		if facing == 1 and left:
+		if facing == 1 and left and wall_jump_count > 0:
+			set_state("Jump")
 			velocity.x = -move_speed
 			velocity.y = wall_jump_speed
 			wall_jump_count -= 1 
 			return
+		
+		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
+			if not is_on_floor():
+				set_state("Fall")
+			else:
+				set_state("Idle")
 	
 	#Crouch Movement
 	if state in ["Crouch"] and not crouch:
@@ -276,17 +285,18 @@ func process_controls():
 		if not can_climb():
 			set_state("Fall")
 	
-	#Jump Movement
-	if jump:
-		set_state("Jump")
-		$Dust.emitting = true
-		velocity.y = jump_speed
-		jump_count -= 1
-	
 	if jump and state in ["Jump", "Fall"]:
 		set_state("Jump")
 		velocity.y = jump_speed / 1.5
 		jump_count -= 1
+	
+	#Jump Movement
+	if jump and not state in ["Jump", "Fall"]:
+		set_state("Jump")
+		$Dust.emitting = true
+		velocity.y = jump_speed
+		jump_count -= 1
+		print(jump_count)
 	
 	#State Checks
 	if state == "Idle":
@@ -329,7 +339,6 @@ func can_wall_jump():
 		if wall_jump_count > 0:
 			return true
 	
-	print("Cant walljump")
 	return false
 
 func can_crouch():
