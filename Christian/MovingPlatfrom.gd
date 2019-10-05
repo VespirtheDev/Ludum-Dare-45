@@ -14,12 +14,12 @@ func _process(delta):
 	if moving:
 		if dir:#chages directions
 			target = $Pos/Start.position# sets target
-			if position.floor() == $Pos/Start.position.floor(): #sets the position to a int and then if the two position matches then the platfrom chages direction
+			if position.floor() > Vector2($Pos/Start.position.x -1,$Pos/Start.position.y - 1): #sets the position to a int and then if the two position matches then the platfrom chages direction
 				dir = false
 				wait(wait_time)
 		elif dir == false:  #the other direction same as the first 
 			target = $Pos/End.position
-			if position.floor() == $Pos/End.position.floor():
+			if position.floor() < Vector2($Pos/End.position.x + 1,$Pos/End.position.y + 1):
 				dir = true
 				wait(wait_time)
 		velocity = (target - position).normalized() * speed
