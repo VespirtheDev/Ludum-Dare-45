@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends StaticBody2D
 
 var moving = true
 var velocity = Vector2()
@@ -23,7 +23,7 @@ func _process(delta):
 				dir = true
 				wait(wait_time)
 		velocity = (target - position).normalized() * speed
-		velocity = move_and_slide(velocity)
+		position += velocity
 		
 
 func wait(time):
