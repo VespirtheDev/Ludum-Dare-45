@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/WalkFinal.wav-52502196f47897e2872dd1b3cc944d13.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/WalkFinal.wav"
+dest_files=[ "res://.import/WalkFinal.wav-52502196f47897e2872dd1b3cc944d13.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
