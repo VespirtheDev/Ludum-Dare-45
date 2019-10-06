@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Test.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Background.tscn" type="PackedScene" id=2]
@@ -79,6 +79,36 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "SpaceBackground"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background/TextureProgress:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Vignette"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background/Vignette:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 58.9924, 35.3197 )
 
@@ -102,18 +132,21 @@ value = 0.0
 [node name="AnimationPlayer" parent="Background" index="1"]
 editor/display_folded = true
 
-[node name="BackGround1" parent="Background/AnimationPlayer/Particles" index="3"]
+[node name="BackGround1" parent="Background/Particles" index="3"]
 emitting = false
 
-[node name="BackGround2" parent="Background/AnimationPlayer/Particles" index="4"]
+[node name="BackGround2" parent="Background/Particles" index="4"]
 emitting = false
 
 [node name="LevelUpgradeAnim" type="AnimationPlayer" parent="."]
 anims/AutoTile = SubResource( 6 )
 anims/BlackLineGround = SubResource( 5 )
 anims/BlanktoGrassTiles = SubResource( 7 )
+anims/SpaceBackground = SubResource( 9 )
+anims/Vignette = SubResource( 8 )
 
 [node name="WhiteBG" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 0.811765, 0.807843, 0.807843, 1 )
 position = Vector2( 3850.28, 2862.64 )
 scale = Vector2( 125.137, 94.3201 )
@@ -362,7 +395,7 @@ zoom = Vector2( 3, 2 )
 
 [editable path="Background"]
 
-[editable path="Background/AnimationPlayer/Particles"]
+[editable path="Background/Particles"]
 
 [editable path="MovingPlatfrom"]
 
