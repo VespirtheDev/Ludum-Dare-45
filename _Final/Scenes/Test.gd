@@ -54,14 +54,14 @@ func upgrade_game(id):
 		$LevelUpgradeAnim.play("Vignette")
 	elif id == 7:
 		$Player.can_interact = true
-		#$LevelUpgradeAnim.play("ShowDecor")
+		$LevelUpgradeAnim.play("ShowDecor")
 		$Player/Visual/LeftArm.show()
 	elif id == 8:
 		$Player.can_crawl = true
-		#$LevelUpgradeAnim.play("SpaceBackground")
+		$LevelUpgradeAnim.play("SpaceBackground")
 	elif id == 9:
 		$Player.can_wall_jump = true
-		#$LevelUpgradeAnim.play("ShowParallax")
+		$Background/Particles/BackGround2.emitting = true
 		$Player/Visual/Body/Head/CatFace.show()
 	elif id == 10:
 		$Player.jump_count_max = 2
