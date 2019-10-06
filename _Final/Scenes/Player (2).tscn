@@ -1465,7 +1465,6 @@ anims/Sprint = SubResource( 9 )
 visible = false
 current = true
 zoom = Vector2( 0.4, 0.4 )
-limit_top = -20
 drag_margin_h_enabled = false
 
 [node name="Dust" type="Particles2D" parent="."]
