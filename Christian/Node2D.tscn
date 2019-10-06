@@ -2,7 +2,7 @@
 
 [ext_resource path="res://MovingPlatfrom.tscn" type="PackedScene" id=1]
 
-[node name="Node2D" type="Node2D"]
+[node name="test" type="Node2D"]
 
 [node name="MovingPlatfrom" parent="." instance=ExtResource( 1 )]
 
