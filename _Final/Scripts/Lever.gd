@@ -9,5 +9,5 @@ func Toggle():
 	else:
 		is_on = true
 		emit_signal("toggle", is_on)
-	$Sprite.flip_h = is_on
+	$Sprite.flip_h = true
 
