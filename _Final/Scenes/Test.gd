@@ -35,8 +35,6 @@ func upgrade_game(id):
 		$Player.can_wall_jump = true
 		#$LevelUpgradeAnim.play("ShowParallax")
 	elif id == 9:
-		$Player.jump_count_max = 2
-	elif id == 10:
 		$Player.slow_fall = true
 		#$LevelUpgradeAnim.play("HugeStarReveal")
 
