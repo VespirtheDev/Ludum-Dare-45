@@ -103,13 +103,13 @@ func set_state(new_state):
 
 func _physics_process(delta):
 	process_gravity(delta)
-
+	
 	process_controls() #Checks for inputs
-
+	
 	velocity = move_and_slide(velocity, Vector2(0, -1)) #Moves the player
-
+	
 	process_collisions()
-
+	
 	#Checks to see if the player should be falling down or Idleing
 	if state == "Jump":
 		if velocity.y > 0:

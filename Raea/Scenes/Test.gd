@@ -1,5 +1,8 @@
 extends Node2D
 
+func player_death():
+	$Player.global_position = $SpawnPoint.global_position
+
 func upgrade_game(id):
 	if id == 1:
 		$Player.can_run_right = true
