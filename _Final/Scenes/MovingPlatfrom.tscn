@@ -4,7 +4,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 22, 8 )
+extents = Vector2( 22.5426, 8.37667 )
 
 [node name="MovingPlatfrom" type="KinematicBody2D"]
 collision_mask = 2
@@ -33,4 +33,3 @@ position = Vector2( 200, 0 )
 
 [node name="End" type="Position2D" parent="Pos"]
 position = Vector2( -200, 0 )
-

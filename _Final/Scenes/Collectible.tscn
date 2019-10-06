@@ -15,5 +15,4 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-
 [connection signal="body_entered" from="." to="." method="collected"]

@@ -1312,8 +1312,8 @@ __meta__ = {
 }
 
 [node name="LeftLeg" type="Sprite" parent="Visual"]
-position = Vector2( -1.51333, 9.84582 )
-rotation = -0.584896
+position = Vector2( -1.51333, 9.84583 )
+rotation = -0.584895
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 offset = Vector2( -3.77505, 35.3307 )
@@ -1529,5 +1529,4 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
-
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]
