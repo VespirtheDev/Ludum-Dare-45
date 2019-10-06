@@ -128,7 +128,6 @@ anims/Blue_Particles = SubResource( 4 )
 position = Vector2( 567.359, 332.889 )
 
 [node name="BackGround2" parent="AnimationPlayer/Particles" index="4"]
-visible = false
-position = Vector2( 668.219, 342.649 )
+position = Vector2( 579.365, 382.316 )
 
 [editable path="AnimationPlayer/Particles"]
