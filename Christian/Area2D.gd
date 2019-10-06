@@ -1,13 +1,13 @@
 extends Area2D
+var is_on = true
+signal toggle
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func Toggle():
+	if is_on == true:
+		is_on = false
+		emit_signal("toggle", is_on)
+	else:
+		is_on = true
+		emit_signal("toggle", is_on)
+	$Sprite.flip_h = is_on
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

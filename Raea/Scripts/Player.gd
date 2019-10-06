@@ -22,6 +22,8 @@ export (float) var jump_speed = 150
 export (float) var wall_jump_speed = 50
 var move_speed = 130
 
+var angle_max = 0
+
 export (float) var gravity = 680
 var jump_count = 0
 var jump_count_max = 2
@@ -61,6 +63,7 @@ func set_state(new_state):
 			next_anim = "Run"
 		
 		"Sprint":
+			angle_max = 65
 			move_speed = sprint_speed
 			next_anim = "Sprint"
 		
@@ -106,7 +109,7 @@ func _physics_process(delta):
 	
 	process_controls() #Checks for inputs
 	
-	velocity = move_and_slide(velocity, Vector2(0, -1)) #Moves the player
+	velocity = move_and_slide(velocity, Vector2(0, -1), true, 4, angle_max) #Moves the player
 	
 	process_collisions()
 	
@@ -180,7 +183,7 @@ func process_controls():
 	var left = Input.is_action_pressed("Left") and can_run_left
 	var jump = Input.is_action_just_pressed("Jump") and can_jump()
 	var wall_jump = Input.is_action_just_pressed("Jump") and can_wall_jump()
-	var crouch = Input.is_action_pressed("Crouch") and can_crouch()
+	var crouch = Input.is_action_just_pressed("Crouch") and can_crouch()
 	var sprint = Input.is_action_pressed("Sprint") and can_sprint
 	
 	var interact = Input.is_action_pressed("Interact")
@@ -231,38 +234,14 @@ func process_controls():
 		$Visual.scale.x = 0.3
 		facing = -1
 		
-		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
-			if not is_on_floor():
-				set_state("Fall")
-			else:
-				set_state("Idle")
-	
-	#Crouch Movement
-	if state in ["Crouch"] and not crouch:
-		if is_on_floor():
-			if velocity.x != 0:
-				set_state("Run")
-			elif velocity.x == 0:
-				set_state("Idle")
-		
-		elif not is_on_floor():
-			if velocity.y < 0:
-				set_state("Jump")
-			elif velocity.y > 0:
-				set_state("Fall")
-	
-	if crouch:
-		set_state("Crouch")
-	if not crouch:
-		if is_on_floor():
-			if velocity.x != 0:
-				set_state("Run")
-	
-	if crouch and not state in ["WallSlide", "Climb"]:
-		set_state("Crouch")
+	if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding() and is_on_floor() and not state in ["Crouch", "Crawl"]:
+		if not is_on_floor():
+			set_state("Fall")
+		else:
+			set_state("Idle")
 	
 	#Climb Movement
-	if climb_up or climb_down:
+	if climb_up or climb_down and not $FeetCheck.is_colliding():
 		set_state("Climb")
 	
 	if state == "Climb":
@@ -308,13 +287,33 @@ func process_controls():
 		if velocity.x != 0:
 			set_state("Run")
 	
-	if state in ["Run", "Sprint"]:
+	if state in ["Run", "Sprint", "Jump", "Fall"]:
 		if velocity.x == 0:
 			set_state("Idle")
 		if sprint:
 			set_state("Sprint")
 		elif not sprint and velocity.x != 0:
 			set_state("Run")
+	
+	#Crouch Movement
+	if crouch and not state in ["WallSlide", "Climb", "Crouch", "Crawl"]:
+		print("Enter crouch")
+		set_state("Crouch")
+		return
+	
+	if state in ["Crouch", "Crawl"] and crouch:
+		print("LEAVE CROUCH")
+		if is_on_floor():
+			if velocity.x != 0:
+				set_state("Run")
+			elif velocity.x == 0:
+				set_state("Idle")
+		
+		elif not is_on_floor():
+			if velocity.y < 0:
+				set_state("Jump")
+			elif velocity.y > 0:
+				set_state("Fall")
 	
 	if state == "Crouch":
 		if velocity.x != 0:

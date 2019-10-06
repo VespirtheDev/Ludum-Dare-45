@@ -81,19 +81,19 @@ shader_param/blue_tint = Color( 0.45098, 0.384314, 0.694118, 0 )
 shader_param/sprite_scale = Vector2( 10, 10 )
 shader_param/scale_x = 0.67
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0, 1, 0.973633, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0.00428528, 0.995 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.027 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 2
 emission_box_extents = Vector3( 1500, 1000, 1000 )
 flag_disable_z = true
@@ -103,11 +103,10 @@ angular_velocity = 12.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale_random = 1.0
-scale_curve = SubResource( 9 )
-color_ramp = SubResource( 7 )
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "Background"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/TextureProgress:value")
 tracks/0/interp = 1
@@ -121,8 +120,7 @@ tracks/0/keys = {
 "values": [ 0.0, 100.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "grass"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TileMap2:modulate")
 tracks/0/interp = 1
@@ -148,7 +146,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 496.098, 227.897 )
 
 [node name="TilesetTest" type="Node2D"]
@@ -193,7 +191,7 @@ scale = Vector2( 0.3, 0.3 )
 emitting = false
 amount = 22
 lifetime = 4.0
-process_material = SubResource( 10 )
+process_material = SubResource( 7 )
 texture = ExtResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -212,8 +210,8 @@ format = 1
 tile_data = PoolIntArray( 20, 3, 3, 23, 3, 3, 65555, 3, 4, 65556, 3, 196611, 65557, 3, 196609, 65558, 3, 196609, 65559, 3, 196611, 65560, 3, 5, 131091, 3, 6, 131096, 3, 6, 196627, 3, 6, 196632, 3, 6, 262163, 3, 65540, 262164, 3, 196609, 262165, 3, 196609, 262166, 3, 196609, 262167, 3, 196609, 262168, 3, 65541, 393234, 3, 196608, 393235, 3, 196609, 393236, 3, 131081, 393237, 3, 65536, 393238, 3, 0, 393239, 3, 196617, 393240, 3, 196609, 393241, 3, 196610, 458772, 3, 131073, 458773, 3, 131077, 458774, 3, 131077, 458775, 3, 131074, 524308, 3, 131073, 524309, 3, 131077, 524310, 3, 131077, 524311, 3, 131074, 589834, 3, 196608, 589835, 3, 196612, 589836, 3, 196610, 589844, 3, 9, 589845, 3, 131072, 589846, 3, 131072, 589847, 3, 10, 655367, 3, 196608, 655368, 3, 5, 655371, 3, 65539, 655376, 3, 3, 655380, 3, 6, 655383, 3, 6, 720899, 3, 3, 720904, 3, 65539, 720911, 3, 196608, 720912, 3, 196611, 720913, 3, 196610, 720916, 3, 65539, 720919, 3, 65539, 786435, 3, 65540, 786436, 3, 196610, 786443, 3, 1, 786444, 3, 2, 851975, 3, 196608, 851976, 3, 196610, 851979, 3, 131073, 851980, 3, 131074, 851983, 3, 3, 851988, 3, 1, 851989, 3, 0, 851990, 3, 2, 917509, 3, 3, 917515, 3, 65537, 917516, 3, 65538, 917519, 3, 6, 917524, 3, 131073, 917525, 3, 131077, 917526, 3, 131078, 917527, 3, 2, 983043, 3, 196613, 983045, 3, 65539, 983055, 3, 65539, 983060, 3, 131073, 983061, 3, 131077, 983062, 3, 131077, 983063, 3, 131074, 1048583, 3, 1, 1048584, 3, 2, 1048587, 3, 3, 1048596, 3, 65537, 1048597, 3, 65543, 1048598, 3, 131077, 1048599, 3, 131074, 1114119, 3, 65537, 1114120, 3, 65538, 1114123, 3, 65539, 1114126, 3, 196608, 1114127, 3, 196609, 1114128, 3, 196610, 1114133, 3, 65537, 1114134, 3, 65543, 1114135, 3, 131074, 1179670, 3, 65537, 1179671, 3, 65538 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Background = SubResource( 3 )
-anims/grass = SubResource( 4 )
+anims/Background = SubResource( 8 )
+anims/grass = SubResource( 9 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
@@ -228,11 +226,11 @@ position = Vector2( -5.26715, 0.976593 )
 scale = Vector2( 0.1, 0.1 )
 
 [node name="LeftLeg" parent="Player/Visual" index="1"]
-position = Vector2( -6.01221, 10.5787 )
+position = Vector2( -6.01221, 10.5786 )
 scale = Vector2( 0.1, 0.1 )
 
 [node name="LeftArm" parent="Player/Visual" index="2"]
-position = Vector2( -3.45532, -22.7375 )
+position = Vector2( -3.45538, -22.7375 )
 scale = Vector2( 0.1, 0.1 )
 
 [node name="Head" parent="Player/Visual/Body" index="0"]
@@ -249,7 +247,7 @@ position = Vector2( -48.4046, 79.9117 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 3013.16, 2523.07 )
-shape = SubResource( 5 )
+shape = SubResource( 10 )
 
 
 [editable path="Player"]

@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=47 format=2]
 
-[ext_resource path="res://Tiles/AutoTile.png" type="Texture" id=1]
+[ext_resource path="res://AutoTile.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
@@ -446,3 +446,4 @@ points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
+
