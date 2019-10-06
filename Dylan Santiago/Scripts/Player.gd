@@ -289,11 +289,12 @@ func process_controls():
 		set_state("Jump")
 		velocity.y = jump_speed / 1.5
 		jump_count -= 1
+		$Particles2D.one_shot = true
+		$Particles2D.emitting = true
 	
 	#Jump Movement
 	if jump and not state in ["Jump", "Fall"]:
 		set_state("Jump")
-		$Dust.emitting = true
 		velocity.y = jump_speed
 		jump_count -= 1
 		print(jump_count)
