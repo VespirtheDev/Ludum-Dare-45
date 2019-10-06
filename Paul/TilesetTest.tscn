@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://TilesetTest.gd" type="Script" id=1]
 [ext_resource path="res://Tiles/BG.png" type="Texture" id=2]
 [ext_resource path="res://Space I guess.png" type="Texture" id=3]
-[ext_resource path="res://Autotilebase.tres" type="TileSet" id=4]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://particle.png" type="Texture" id=4]
+[ext_resource path="res://Autotilebase.tres" type="TileSet" id=5]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -79,6 +80,31 @@ shader = SubResource( 1 )
 shader_param/blue_tint = Color( 0.45098, 0.384314, 0.694118, 0 )
 shader_param/sprite_scale = Vector2( 10, 10 )
 shader_param/scale_x = 0.67
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0, 1, 0.973633, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0.00428528, 0.995 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.027 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 1500, 1000, 1000 )
+flag_disable_z = true
+gravity = Vector3( 0, 10, 0 )
+initial_velocity = 1.0
+angular_velocity = 12.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Background"
@@ -161,8 +187,17 @@ position = Vector2( 1046.39, 731.344 )
 scale = Vector2( 1.03125, 1.00657 )
 texture = ExtResource( 2 )
 
+[node name="Particles2D" type="Particles2D" parent="CanvasLayer"]
+position = Vector2( 490.203, 272.934 )
+scale = Vector2( 0.3, 0.3 )
+emitting = false
+amount = 22
+lifetime = 4.0
+process_material = SubResource( 10 )
+texture = ExtResource( 4 )
+
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 256, 256 )
 collision_layer = 63
 collision_mask = 63
@@ -171,7 +206,7 @@ tile_data = PoolIntArray( 20, 2, 3, 23, 2, 3, 65555, 2, 4, 65556, 2, 196611, 655
 
 [node name="TileMap2" type="TileMap" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 256, 256 )
 format = 1
 tile_data = PoolIntArray( 20, 3, 3, 23, 3, 3, 65555, 3, 4, 65556, 3, 196611, 65557, 3, 196609, 65558, 3, 196609, 65559, 3, 196611, 65560, 3, 5, 131091, 3, 6, 131096, 3, 6, 196627, 3, 6, 196632, 3, 6, 262163, 3, 65540, 262164, 3, 196609, 262165, 3, 196609, 262166, 3, 196609, 262167, 3, 196609, 262168, 3, 65541, 393234, 3, 196608, 393235, 3, 196609, 393236, 3, 131081, 393237, 3, 65536, 393238, 3, 0, 393239, 3, 196617, 393240, 3, 196609, 393241, 3, 196610, 458772, 3, 131073, 458773, 3, 131077, 458774, 3, 131077, 458775, 3, 131074, 524308, 3, 131073, 524309, 3, 131077, 524310, 3, 131077, 524311, 3, 131074, 589834, 3, 196608, 589835, 3, 196612, 589836, 3, 196610, 589844, 3, 9, 589845, 3, 131072, 589846, 3, 131072, 589847, 3, 10, 655367, 3, 196608, 655368, 3, 5, 655371, 3, 65539, 655376, 3, 3, 655380, 3, 6, 655383, 3, 6, 720899, 3, 3, 720904, 3, 65539, 720911, 3, 196608, 720912, 3, 196611, 720913, 3, 196610, 720916, 3, 65539, 720919, 3, 65539, 786435, 3, 65540, 786436, 3, 196610, 786443, 3, 1, 786444, 3, 2, 851975, 3, 196608, 851976, 3, 196610, 851979, 3, 131073, 851980, 3, 131074, 851983, 3, 3, 851988, 3, 1, 851989, 3, 0, 851990, 3, 2, 917509, 3, 3, 917515, 3, 65537, 917516, 3, 65538, 917519, 3, 6, 917524, 3, 131073, 917525, 3, 131077, 917526, 3, 131078, 917527, 3, 2, 983043, 3, 196613, 983045, 3, 65539, 983055, 3, 65539, 983060, 3, 131073, 983061, 3, 131077, 983062, 3, 131077, 983063, 3, 131074, 1048583, 3, 1, 1048584, 3, 2, 1048587, 3, 3, 1048596, 3, 65537, 1048597, 3, 65543, 1048598, 3, 131077, 1048599, 3, 131074, 1114119, 3, 65537, 1114120, 3, 65538, 1114123, 3, 65539, 1114126, 3, 196608, 1114127, 3, 196609, 1114128, 3, 196610, 1114133, 3, 65537, 1114134, 3, 65543, 1114135, 3, 131074, 1179670, 3, 65537, 1179671, 3, 65538 )
@@ -180,7 +215,8 @@ tile_data = PoolIntArray( 20, 3, 3, 23, 3, 3, 65555, 3, 4, 65556, 3, 196611, 655
 anims/Background = SubResource( 3 )
 anims/grass = SubResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
+[node name="Player" parent="." instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 4226.95, 516.987 )
 scale = Vector2( 20, 20 )
 
@@ -204,7 +240,7 @@ editor/display_folded = false
 
 [node name="Camera2D" parent="Player" index="2"]
 position = Vector2( -49.1407, 69.1255 )
-zoom = Vector2( 6, 6 )
+zoom = Vector2( 4, 4 )
 
 [node name="Dust" parent="Player" index="3"]
 position = Vector2( -48.4046, 79.9117 )
