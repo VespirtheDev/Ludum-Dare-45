@@ -120,7 +120,7 @@ curve = SubResource( 16 )
 
 [sub_resource type="ParticlesMaterial" id=18]
 emission_shape = 2
-emission_box_extents = Vector3( 100, 100, 100 )
+emission_box_extents = Vector3( 200, 100, 100 )
 flag_disable_z = true
 gravity = Vector3( 0, 8, 0 )
 initial_velocity = 10.0
@@ -164,7 +164,15 @@ fixed_fps = 200
 local_coords = false
 process_material = SubResource( 13 )
 
-[node name="BackGround" type="Particles2D" parent="."]
-position = Vector2( -0.614716, -0.307358 )
+[node name="BackGround1" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 502.451, 298.889 )
+scale = Vector2( 3, 3 )
+amount = 100
+process_material = SubResource( 18 )
+
+[node name="BackGround2" type="Particles2D" parent="."]
+position = Vector2( 502.451, 298.889 )
+scale = Vector2( 3, 3 )
 amount = 100
 process_material = SubResource( 18 )
