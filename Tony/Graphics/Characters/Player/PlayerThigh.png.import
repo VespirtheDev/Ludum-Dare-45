@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AutoTile.png-39dbf13d8b2481dff10800d7b689b819.stex"
+path="res://.import/PlayerThigh.png-b1a360bc3ab6b729ffe82bfe030a45e6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AutoTile.png"
-dest_files=[ "res://.import/AutoTile.png-39dbf13d8b2481dff10800d7b689b819.stex" ]
+source_file="res://Graphics/Characters/Player/PlayerThigh.png"
+dest_files=[ "res://.import/PlayerThigh.png-b1a360bc3ab6b729ffe82bfe030a45e6.stex" ]
 
 [params]
 
