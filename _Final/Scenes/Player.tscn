@@ -1303,11 +1303,17 @@ extents = Vector2( 10, 12.1809 )
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 1 )
+run_speed = 150.0
+sprint_speed = 200.0
+crawl_speed = 50.0
+climb_speed = 50.0
+jump_speed = -250.0
+wall_jump_speed = -100.0
 
 [node name="Visual" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( -0.271877, 4.35002 )
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( -0.3, 0.3 )
 
 [node name="LeftThigh" type="Sprite" parent="Visual"]
 visible = false
@@ -1322,8 +1328,8 @@ __meta__ = {
 
 [node name="LeftLeg" type="Sprite" parent="Visual"]
 visible = false
-position = Vector2( -1.51333, 9.84582 )
-rotation = -0.584896
+position = Vector2( -1.51333, 9.84583 )
+rotation = -0.584895
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 offset = Vector2( -3.77505, 35.3307 )
