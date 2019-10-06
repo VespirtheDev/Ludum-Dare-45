@@ -94,7 +94,6 @@ position = Vector2( 635.506, 87.9605 )
 
 [node name="MovingPlatfrom" parent="." instance=ExtResource( 8 )]
 position = Vector2( 267.957, 68.1371 )
-speed = 100
 wait_time = 1
 
 [node name="Start" parent="MovingPlatfrom/Pos" index="0"]

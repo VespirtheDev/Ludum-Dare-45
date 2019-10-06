@@ -45,7 +45,7 @@ float fbm(vec2 coord){
 }
 
 void fragment() {  //Function the shader calls to decide what color to render
-	vec2 coord = UV * 50.0;
+	vec2 coord = UV * 10.0;
 	
 	vec2 motion = vec2( fbm(coord + vec2(TIME * -0.5, TIME * 0.5)) );
 	
@@ -63,7 +63,7 @@ shader_param/OCTAVES = 4
 [node name="Fog" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.356863 )
+modulate = Color( 1, 1, 1, 0.0470588 )
 material = SubResource( 2 )
 position = Vector2( 327.241, 313.272 )
 scale = Vector2( 8.66527, 8.66527 )

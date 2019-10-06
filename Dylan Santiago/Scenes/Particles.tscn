@@ -168,3 +168,5 @@ process_material = SubResource( 13 )
 position = Vector2( -0.614716, -0.307358 )
 amount = 100
 process_material = SubResource( 18 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
