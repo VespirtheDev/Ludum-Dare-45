@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Ludum Dare 45"
+config/name="New Game Project"
 config/icon="res://icon.png"
 
 [rendering]
