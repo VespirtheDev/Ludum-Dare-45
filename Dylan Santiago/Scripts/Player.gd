@@ -190,6 +190,16 @@ func process_controls():
 	
 	var wallslide_right = Input.is_action_pressed("Right") and $RightSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
 	var wallslide_left = Input.is_action_pressed("Left") and $LeftSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
+	
+	if wallslide_right:
+#		$WallSlide.process_material.orbit_velocity = -0.3
+		$WallSlide.emitting = true
+	if wallslide_left:
+#		$WallSlide.process_material.orbit_velocity = 0.3
+		$WallSlide.emitting = true
+		
+	if not wallslide_right or not wallslide_left:
+		$WallSlide.emitting = false
 	#------------------------------
 	
 	if state == "Climb":
@@ -289,8 +299,9 @@ func process_controls():
 		set_state("Jump")
 		velocity.y = jump_speed / 1.5
 		jump_count -= 1
-		$Particles2D.one_shot = true
-		$Particles2D.emitting = true
+		$DoubleJump.emitting = true
+		yield(get_tree().create_timer(0.2), "timeout")
+		$DoubleJump.emitting = false
 	
 	#Jump Movement
 	if jump and not state in ["Jump", "Fall"]:

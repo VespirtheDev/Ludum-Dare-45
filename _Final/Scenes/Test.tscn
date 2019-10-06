@@ -94,7 +94,6 @@ position = Vector2( 635.506, 87.9605 )
 
 [node name="MovingPlatfrom" parent="." instance=ExtResource( 8 )]
 position = Vector2( 267.957, 68.1371 )
-speed = 100
 wait_time = 1
 
 [node name="Start" parent="MovingPlatfrom/Pos" index="0"]
@@ -102,7 +101,6 @@ position = Vector2( 319.5, 103.956 )
 
 [node name="End" parent="MovingPlatfrom/Pos" index="1"]
 position = Vector2( 215.827, 104.704 )
-
 [connection signal="dead" from="Player" to="." method="player_death"]
 [connection signal="upgrade_player" from="Collectibles/Collectible1" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectibles/Collectible2" to="." method="upgrade_game"]

@@ -24,7 +24,7 @@ var move_speed = 130
 
 export (float) var gravity = 680
 var jump_count = 0
-var jump_count_max = 2
+var jump_count_max = 4
 var wall_jump_count = 0
 var wall_jump_count_max = 1
 
@@ -122,7 +122,7 @@ func _physics_process(delta):
 		jump_count = jump_count_max
 
 	#If the player's position is over 1,000 you die
-	if velocity.y > 1000:
+	if position.y > 1000:
 		set_state("Dead")
 
 	process_animation()
@@ -294,7 +294,7 @@ func process_controls():
 	
 	if jump and state in ["Jump", "Fall"]:
 		set_state("Jump")
-		velocity.y = jump_speed / 1.5
+		velocity.y = jump_speed * 0.85
 		jump_count -= 1
 	
 	#Jump Movement

@@ -22,6 +22,8 @@ export (float) var jump_speed = 150
 export (float) var wall_jump_speed = 50
 var move_speed = 130
 
+var angle_max = 0
+
 export (float) var gravity = 680
 var jump_count = 0
 var jump_count_max = 2
@@ -61,6 +63,7 @@ func set_state(new_state):
 			next_anim = "Run"
 		
 		"Sprint":
+			angle_max = 65
 			move_speed = sprint_speed
 			next_anim = "Sprint"
 		
@@ -106,7 +109,7 @@ func _physics_process(delta):
 	
 	process_controls() #Checks for inputs
 	
-	velocity = move_and_slide(velocity, Vector2(0, -1)) #Moves the player
+	velocity = move_and_slide(velocity, Vector2(0, -1), true, 4, angle_max) #Moves the player
 	
 	process_collisions()
 	
@@ -284,7 +287,7 @@ func process_controls():
 		if velocity.x != 0:
 			set_state("Run")
 	
-	if state in ["Run", "Sprint"]:
+	if state in ["Run", "Sprint", "Jump", "Fall"]:
 		if velocity.x == 0:
 			set_state("Idle")
 		if sprint:
