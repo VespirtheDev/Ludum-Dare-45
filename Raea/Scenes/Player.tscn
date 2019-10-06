@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://Graphics/Characters/Player/PlayerArm.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Characters/Player/PlayerBody.png" type="Texture" id=5]
 [ext_resource path="res://Graphics/Characters/Player/PlayerHead.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/Characters/Player/CatFace.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/Characters/Player/Scarf.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/Characters/Player/Boot.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/Characters/Player/BootWing.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -1298,13 +1302,13 @@ collision_mask = 13
 script = ExtResource( 1 )
 
 [node name="Visual" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( -0.271877, 4.35002 )
 scale = Vector2( 0.3, 0.3 )
 
 [node name="LeftThigh" type="Sprite" parent="Visual"]
+visible = false
 position = Vector2( -5.2672, 0.976585 )
-rotation = -0.5327
+rotation = -0.482318
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 offset = Vector2( 0.174332, 37.714 )
@@ -1313,8 +1317,9 @@ __meta__ = {
 }
 
 [node name="LeftLeg" type="Sprite" parent="Visual"]
-position = Vector2( -1.07143, 9.64552 )
-rotation = -0.803178
+visible = false
+position = Vector2( -1.51333, 9.84582 )
+rotation = -0.584896
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 offset = Vector2( -3.77505, 35.3307 )
@@ -1323,8 +1328,9 @@ __meta__ = {
 }
 
 [node name="LeftArm" type="Sprite" parent="Visual"]
+visible = false
 position = Vector2( -3.45536, -22.7376 )
-rotation = 1.25048
+rotation = 1.67824
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 offset = Vector2( 132.2, 16.2942 )
@@ -1339,7 +1345,6 @@ __meta__ = {
 }
 
 [node name="Head" type="Sprite" parent="Visual/Body"]
-editor/display_folded = true
 position = Vector2( -38.7671, -254.763 )
 rotation = -0.0597519
 texture = ExtResource( 6 )
@@ -1355,9 +1360,20 @@ __meta__ = {
 "_edit_bone_": true
 }
 
+[node name="CatFace" type="Sprite" parent="Visual/Body/Head"]
+visible = false
+position = Vector2( 18.86, -131.538 )
+scale = Vector2( 1.8, 1.8 )
+texture = ExtResource( 7 )
+
+[node name="Scarf" type="Sprite" parent="Visual/Body/Head"]
+visible = false
+position = Vector2( 71.0967, -17.6248 )
+texture = ExtResource( 8 )
+
 [node name="LeftThigh" type="RemoteTransform2D" parent="Visual/Body"]
 position = Vector2( -70.0478, -7.02855 )
-rotation = -0.5327
+rotation = -0.482318
 remote_path = NodePath("../../LeftThigh")
 __meta__ = {
 "_edit_bone_": true,
@@ -1374,7 +1390,7 @@ __meta__ = {
 
 [node name="LeftLeg" type="RemoteTransform2D" parent="Visual/Body/LeftThigh"]
 position = Vector2( -7.88218, 95.9863 )
-rotation = -0.270478
+rotation = -0.102577
 remote_path = NodePath("../../../LeftLeg")
 __meta__ = {
 "_edit_bone_": true
@@ -1387,9 +1403,21 @@ __meta__ = {
 "_edit_bone_": true
 }
 
+[node name="BootLeft" type="Sprite" parent="Visual/Body/LeftThigh/LeftLeg"]
+visible = false
+position = Vector2( 2.30859, 95.9734 )
+rotation = -0.384933
+scale = Vector2( 0.8, 0.9 )
+texture = ExtResource( 9 )
+
+[node name="BootWing" type="Sprite" parent="Visual/Body/LeftThigh/LeftLeg/BootLeft"]
+visible = false
+position = Vector2( 77.5605, -51.4897 )
+texture = ExtResource( 10 )
+
 [node name="LeftArm" type="RemoteTransform2D" parent="Visual/Body"]
 position = Vector2( -51.9294, -244.17 )
-rotation = 1.25048
+rotation = 1.67824
 remote_path = NodePath("../../LeftArm")
 __meta__ = {
 "_edit_bone_": true,
@@ -1404,7 +1432,7 @@ __meta__ = {
 
 [node name="RightThigh" type="Sprite" parent="Visual/Body"]
 position = Vector2( 51.0267, -19.8634 )
-rotation = 0.359969
+rotation = 0.138752
 texture = ExtResource( 2 )
 offset = Vector2( -7.61988, 57.6945 )
 __meta__ = {
@@ -1421,7 +1449,7 @@ __meta__ = {
 
 [node name="RightLeg" type="Sprite" parent="Visual/Body/RightThigh"]
 position = Vector2( -17.4853, 79.1358 )
-rotation = -0.0647723
+rotation = -0.00230736
 texture = ExtResource( 3 )
 offset = Vector2( 3.4918, 39.9547 )
 __meta__ = {
@@ -1435,9 +1463,21 @@ __meta__ = {
 "_edit_bone_": true
 }
 
+[node name="BootRight" type="Sprite" parent="Visual/Body/RightThigh/RightLeg"]
+visible = false
+position = Vector2( 16.8119, 101.846 )
+scale = Vector2( 0.8, 0.9 )
+texture = ExtResource( 9 )
+
+[node name="BootWing" type="Sprite" parent="Visual/Body/RightThigh/RightLeg/BootRight"]
+visible = false
+position = Vector2( 61.8652, -76.1836 )
+texture = ExtResource( 10 )
+
 [node name="RightArm" type="Sprite" parent="Visual/Body"]
+visible = false
 position = Vector2( 62.6053, -246.755 )
-rotation = 2.3728
+rotation = 1.77802
 texture = ExtResource( 4 )
 offset = Vector2( 132.2, 16.2942 )
 __meta__ = {
