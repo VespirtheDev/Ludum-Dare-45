@@ -1,18 +1,158 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Autotilebase.tres" type="TileSet" id=1]
 [ext_resource path="res://Tiles/BG.png" type="Texture" id=2]
+[ext_resource path="res://Space I guess.png" type="Texture" id=3]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// Gonkee's water shader for Godot 3 - full tutorial https://youtu.be/uhMAHpV_cDg
+// If you use this shader, I would prefer if you gave credit to me and my channel
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+	
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+	
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+	
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+	
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+	
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+	
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+	
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+	
+	color = mix(color, vec4(1.0), near_top);
+	
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+	
+	if(near_top > edge_lower){
+		color.a = 0.0;
+		
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+	
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/blue_tint = Color( 0.45098, 0.384314, 0.694118, 0 )
+shader_param/sprite_scale = Vector2( 10, 10 )
+shader_param/scale_x = 0.67
+
+[sub_resource type="Animation" id=3]
+resource_name = "Background"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureProgress:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "grass"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TileMap2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="TilesetTest" type="Node2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="bg1" type="Sprite" parent="."]
 visible = false
-position = Vector2( 3391.43, -1207.59 )
+position = Vector2( 3469.41, -1155.61 )
 scale = Vector2( 3.31498, 3.86437 )
+texture = ExtResource( 2 )
+
+[node name="bg2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 4672.87, -263.275 )
+scale = Vector2( 4.43736, 5.17277 )
+texture = ExtResource( 3 )
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = -1063.73
+margin_top = -4231.63
+margin_right = 1036.27
+margin_bottom = -2731.63
+rect_scale = Vector2( 5, 5 )
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 4120.79, -738.365 )
+scale = Vector2( 5.07611, 5.5676 )
 texture = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 256, 256 )
 format = 1
-tile_data = PoolIntArray( -917487, 2, 3, -917484, 2, 3, -851952, 2, 4, -851951, 2, 196611, -851950, 2, 196609, -851949, 2, 196609, -851948, 2, 196611, -851947, 2, 5, -786416, 2, 6, -786411, 2, 6, -720880, 2, 6, -720875, 2, 6, -655344, 2, 65540, -655343, 2, 196609, -655342, 2, 196609, -655341, 2, 196609, -655340, 2, 196609, -655339, 2, 65541, -524273, 2, 196608, -524272, 2, 196609, -524271, 2, 131081, -524270, 2, 65536, -524269, 2, 65536, -524268, 2, 196617, -524267, 2, 196609, -524266, 2, 196610, -458735, 2, 131073, -458734, 2, 131077, -458733, 2, 131077, -458732, 2, 131074, -393201, 2, 196608, -393200, 2, 196609, -393199, 2, 131080, -393198, 2, 131077, -393197, 2, 131077, -393196, 2, 196616, -393195, 2, 196609, -393194, 2, 196610, -327673, 2, 196608, -327672, 2, 196612, -327671, 2, 196610, -327663, 2, 9, -327662, 2, 131072, -327661, 2, 131072, -327660, 2, 10, -262140, 2, 196608, -262139, 2, 5, -262136, 2, 65539, -262131, 2, 3, -262127, 2, 6, -262124, 2, 6, -196608, 2, 3, -196603, 2, 65539, -196596, 2, 196608, -196595, 2, 196611, -196594, 2, 196610, -196591, 2, 65539, -196588, 2, 65539, -131072, 2, 65540, -131071, 2, 196610, -131064, 2, 1, -131063, 2, 2, -65532, 2, 196608, -65531, 2, 196610, -65528, 2, 131073, -65527, 2, 131074, -65524, 2, 3, -65519, 2, 1, -65518, 2, 0, -65517, 2, 2, 2, 2, 3, 8, 2, 65537, 9, 2, 65538, 12, 2, 6, 17, 2, 131073, 18, 2, 131077, 19, 2, 131078, 20, 2, 2, 65536, 2, 196613, 65538, 2, 65539, 65548, 2, 65539, 65553, 2, 131073, 65554, 2, 131077, 65555, 2, 131077, 65556, 2, 131074, 131076, 2, 1, 131077, 2, 2, 131080, 2, 3, 131089, 2, 65537, 131090, 2, 65543, 131091, 2, 131077, 131092, 2, 131074, 196612, 2, 65537, 196613, 2, 65538, 196616, 2, 65539, 196619, 2, 196608, 196620, 2, 196609, 196621, 2, 196610, 196626, 2, 65537, 196627, 2, 131072, 196628, 2, 65538 )
+tile_data = PoolIntArray( -917487, 2, 3, -917484, 2, 3, -851952, 2, 4, -851951, 2, 196611, -851950, 2, 196609, -851949, 2, 196609, -851948, 2, 196611, -851947, 2, 5, -786416, 2, 6, -786411, 2, 6, -720880, 2, 6, -720875, 2, 6, -655344, 2, 65540, -655343, 2, 196609, -655342, 2, 196609, -655341, 2, 196609, -655340, 2, 196609, -655339, 2, 65541, -524273, 2, 196608, -524272, 2, 196609, -524271, 2, 131081, -524270, 2, 65536, -524269, 2, 65536, -524268, 2, 196617, -524267, 2, 196609, -524266, 2, 196610, -458735, 2, 131073, -458734, 2, 131077, -458733, 2, 131077, -458732, 2, 131074, -393199, 2, 131073, -393198, 2, 131077, -393197, 2, 131077, -393196, 2, 131074, -327673, 2, 196608, -327672, 2, 196612, -327671, 2, 196610, -327663, 2, 9, -327662, 2, 131072, -327661, 2, 131072, -327660, 2, 10, -262140, 2, 196608, -262139, 2, 5, -262136, 2, 65539, -262131, 2, 3, -262127, 2, 6, -262124, 2, 6, -196608, 2, 3, -196603, 2, 65539, -196596, 2, 196608, -196595, 2, 196611, -196594, 2, 196610, -196591, 2, 65539, -196588, 2, 65539, -131072, 2, 65540, -131071, 2, 196610, -131064, 2, 1, -131063, 2, 2, -65532, 2, 196608, -65531, 2, 196610, -65528, 2, 131073, -65527, 2, 131074, -65524, 2, 3, -65519, 2, 1, -65518, 2, 0, -65517, 2, 2, 2, 2, 3, 8, 2, 65537, 9, 2, 65538, 12, 2, 6, 17, 2, 131073, 18, 2, 131077, 19, 2, 131078, 20, 2, 2, 65536, 2, 196613, 65538, 2, 65539, 65548, 2, 65539, 65553, 2, 131073, 65554, 2, 131077, 65555, 2, 131077, 65556, 2, 131074, 131076, 2, 1, 131077, 2, 2, 131080, 2, 3, 131089, 2, 65537, 131090, 2, 65543, 131091, 2, 131077, 131092, 2, 131074, 196612, 2, 65537, 196613, 2, 65538, 196616, 2, 65539, 196619, 2, 196608, 196620, 2, 196609, 196621, 2, 196610, 196626, 2, 65537, 196627, 2, 131072, 196628, 2, 65538 )
+
+[node name="TileMap2" type="TileMap" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 256, 256 )
+format = 1
+tile_data = PoolIntArray( -917487, 3, 3, -917484, 3, 3, -851952, 3, 4, -851951, 3, 196611, -851950, 3, 196609, -851949, 3, 196609, -851948, 3, 196611, -851947, 3, 5, -786416, 3, 6, -786411, 3, 6, -720880, 3, 6, -720875, 3, 6, -655344, 3, 65540, -655343, 3, 196609, -655342, 3, 196609, -655341, 3, 196609, -655340, 3, 196609, -655339, 3, 65541, -524273, 3, 196608, -524272, 3, 196609, -524271, 3, 131081, -524270, 3, 65536, -524269, 3, 0, -524268, 3, 196617, -524267, 3, 196609, -524266, 3, 196610, -458735, 3, 131073, -458734, 3, 131077, -458733, 3, 131077, -458732, 3, 131074, -393199, 3, 131073, -393198, 3, 131077, -393197, 3, 131077, -393196, 3, 131074, -327673, 3, 196608, -327672, 3, 196612, -327671, 3, 196610, -327663, 3, 9, -327662, 3, 131072, -327661, 3, 131072, -327660, 3, 10, -262140, 3, 196608, -262139, 3, 5, -262136, 3, 65539, -262131, 3, 3, -262127, 3, 6, -262124, 3, 6, -196608, 3, 3, -196603, 3, 65539, -196596, 3, 196608, -196595, 3, 196611, -196594, 3, 196610, -196591, 3, 65539, -196588, 3, 65539, -131072, 3, 65540, -131071, 3, 196610, -131064, 3, 1, -131063, 3, 2, -65532, 3, 196608, -65531, 3, 196610, -65528, 3, 131073, -65527, 3, 131074, -65524, 3, 3, -65519, 3, 1, -65518, 3, 0, -65517, 3, 2, 2, 3, 3, 8, 3, 65537, 9, 3, 65538, 12, 3, 6, 17, 3, 131073, 18, 3, 131077, 19, 3, 131078, 20, 3, 2, 65536, 3, 196613, 65538, 3, 65539, 65548, 3, 65539, 65553, 3, 131073, 65554, 3, 131077, 65555, 3, 131077, 65556, 3, 131074, 131076, 3, 1, 131077, 3, 2, 131080, 3, 3, 131089, 3, 65537, 131090, 3, 65543, 131091, 3, 131077, 131092, 3, 131074, 196612, 3, 65537, 196613, 3, 65538, 196616, 3, 65539, 196619, 3, 196608, 196620, 3, 196609, 196621, 3, 196610, 196626, 3, 65537, 196627, 3, 131072, 196628, 3, 65538 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Background = SubResource( 3 )
+anims/grass = SubResource( 4 )
