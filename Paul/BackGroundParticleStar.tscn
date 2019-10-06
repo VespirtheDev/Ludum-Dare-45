@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Graphics/star.png" type="Texture" id=1]
 
@@ -108,9 +108,10 @@ scale_random = 1.0
 color_ramp = SubResource( 12 )
 
 [sub_resource type="Gradient" id=14]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+offsets = PoolRealArray( 0, 0.0307692, 1 )
+colors = PoolColorArray( 0.0195313, 1, 0.885101, 1, 0, 1, 0.859375, 0.892308, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=15]
+[sub_resource type="GradientTexture" id=20]
 gradient = SubResource( 14 )
 
 [sub_resource type="Curve" id=16]
@@ -120,7 +121,36 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 12.4175 ), 0.0, 0.0, 0,
 [sub_resource type="CurveTexture" id=17]
 curve = SubResource( 16 )
 
-[sub_resource type="ParticlesMaterial" id=18]
+[sub_resource type="ParticlesMaterial" id=19]
+emission_shape = 2
+emission_box_extents = Vector3( 200, 100, 100 )
+flag_disable_z = true
+gravity = Vector3( 0, 8, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 0.0
+orbit_velocity = 0.01
+orbit_velocity_random = 1.0
+linear_accel = 0.5
+linear_accel_random = 1.0
+radial_accel = 5.0
+radial_accel_random = 1.0
+tangential_accel = 10.0
+tangential_accel_random = 1.0
+scale = 0.2
+scale_random = 1.0
+scale_curve = SubResource( 17 )
+color_ramp = SubResource( 20 )
+hue_variation = -1.0
+
+[sub_resource type="Gradient" id=23]
+offsets = PoolRealArray( 0, 0.0307692, 1 )
+colors = PoolColorArray( 0.0195313, 1, 0.885101, 1, 1, 1, 1, 0.892308, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=24]
+gradient = SubResource( 23 )
+
+[sub_resource type="ParticlesMaterial" id=22]
 emission_shape = 2
 emission_box_extents = Vector3( 200, 100, 100 )
 flag_disable_z = true
@@ -139,7 +169,7 @@ tangential_accel_random = 1.0
 scale = 0.1
 scale_random = 1.0
 scale_curve = SubResource( 17 )
-color_ramp = SubResource( 15 )
+color_ramp = SubResource( 24 )
 hue_variation = -1.0
 
 [node name="Particles" type="Node2D"]
@@ -167,15 +197,14 @@ local_coords = false
 process_material = SubResource( 13 )
 
 [node name="BackGround1" type="Particles2D" parent="."]
-visible = false
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
 amount = 100
-process_material = SubResource( 18 )
+process_material = SubResource( 19 )
 
 [node name="BackGround2" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
 amount = 100
-process_material = SubResource( 18 )
+process_material = SubResource( 22 )
 texture = ExtResource( 1 )
