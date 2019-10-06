@@ -302,7 +302,6 @@ func process_controls():
 		return
 	
 	if state in ["Crouch", "Crawl"] and crouch:
-		print("LEAVE CROUCH")
 		if is_on_floor():
 			if velocity.x != 0:
 				set_state("Run")

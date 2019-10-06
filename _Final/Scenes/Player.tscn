@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=2]
@@ -1294,16 +1294,26 @@ extents = Vector2( 7.22661, 13.9009 )
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 3.89858, 8.74267 )
 
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 10, 12.1809 )
+
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 1 )
+run_speed = 150.0
+sprint_speed = 200.0
+crawl_speed = 50.0
+climb_speed = 50.0
+jump_speed = -250.0
+wall_jump_speed = -100.0
 
 [node name="Visual" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -0.271877, 4.35002 )
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( -0.3, 0.3 )
 
 [node name="LeftThigh" type="Sprite" parent="Visual"]
 visible = false
@@ -1548,11 +1558,19 @@ collision_mask = 16
 position = Vector2( -0.0340958, -4.23034 )
 shape = SubResource( 13 )
 
+[node name="Interaction" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="AreaCollider" type="CollisionShape2D" parent="Interaction"]
+shape = SubResource( 14 )
+disabled = true
+
 [node name="ImmortalDuration" type="Timer" parent="."]
 
 [node name="HeadCheck" type="RayCast2D" parent="."]
 visible = false
-position = Vector2( -0.150616, -15.5143 )
+position = Vector2( -1.25507, -5.10087 )
 enabled = true
 cast_to = Vector2( 0, -4 )
 
@@ -1573,4 +1591,5 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
+
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]
