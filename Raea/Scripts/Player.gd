@@ -287,7 +287,7 @@ func process_controls():
 		if velocity.x != 0:
 			set_state("Run")
 	
-	if state in ["Run", "Sprint"]:
+	if state in ["Run", "Sprint", "Jump", "Fall"]:
 		if velocity.x == 0:
 			set_state("Idle")
 		if sprint:
