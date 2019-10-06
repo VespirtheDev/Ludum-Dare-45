@@ -264,7 +264,7 @@ editor/display_folded = true
 visible = false
 position = Vector2( -0.349649, 3.37994 )
 collision_layer = 0
-collision_mask = 16
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -0.0340958, -4.23034 )
