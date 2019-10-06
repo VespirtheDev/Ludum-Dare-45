@@ -62,7 +62,7 @@ func set_state(new_state):
 		
 		"Sprint":
 			move_speed = sprint_speed
-			next_anim = "Run"
+			next_anim = "Sprint"
 		
 		"Jump":
 			$BodyCollider.disabled = false
@@ -85,7 +85,7 @@ func set_state(new_state):
 			next_anim = "Crawl"
 		
 		"WallSlide":
-			next_anim = "Fall"
+			next_anim = "WallSlide"
 		
 		"Hurt":
 			immortal = true
@@ -142,7 +142,7 @@ func process_gravity(delta):
 	if state == "WallSlide":
 		if velocity.y > 0:
 			velocity.y = 0
-		velocity.y += 300 * delta #Handles gravity
+		velocity.y += 500 * delta #Handles gravity
 	else:
 		velocity.y += (gravity + gravity_mod) * delta #Handles gravity
 
@@ -196,6 +196,30 @@ func process_controls():
 		velocity.y = 0
 	velocity.x = 0
 	
+	if wallslide_right or wallslide_left:
+		set_state("WallSlide")
+	
+	#Wallslide Movement
+	if state == "WallSlide":
+#		print(facing)
+		if facing == -1 and right and wall_jump_count > 0:
+			set_state("Jump")
+			velocity.x = move_speed
+			velocity.y = wall_jump_speed
+			wall_jump_count -= 1
+			return
+		
+		if facing == 1 and left and wall_jump_count > 0:
+			set_state("Jump")
+			velocity.x = -move_speed
+			velocity.y = wall_jump_speed
+			wall_jump_count -= 1 
+			return
+	
+	if state == "WallSlide":
+		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
+			set_state("Fall")
+	
 	#Run & Sprint Movement
 	if right:
 		velocity.x = move_speed
@@ -206,24 +230,6 @@ func process_controls():
 		velocity.x = -move_speed
 		$Visual.scale.x = 0.3
 		facing = -1
-	
-	if wallslide_right or wallslide_left:
-		set_state("WallSlide")
-	
-	#Wallslide Movement
-	if state == "WallSlide":
-		if facing == -1 and right and wall_jump_count > 0:
-			set_state("Jump")
-			velocity.x = move_speed
-			velocity.y = wall_jump_speed
-			wall_jump_count -= 1
-			return
-		if facing == 1 and left and wall_jump_count > 0:
-			set_state("Jump")
-			velocity.x = -move_speed
-			velocity.y = wall_jump_speed
-			wall_jump_count -= 1 
-			return
 		
 		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
 			if not is_on_floor():
@@ -296,7 +302,6 @@ func process_controls():
 		$Dust.emitting = true
 		velocity.y = jump_speed
 		jump_count -= 1
-		print(jump_count)
 	
 	#State Checks
 	if state == "Idle":
@@ -337,6 +342,7 @@ func can_jump():
 func can_wall_jump():
 	if can_wall_jump:
 		if wall_jump_count > 0:
+			print("Can wall jump")
 			return true
 	
 	return false
@@ -356,7 +362,5 @@ func can_climb():
 	
 	return false
 
-func _on_ImmortalDuration_timeout():
-	immortal = false
 
 
