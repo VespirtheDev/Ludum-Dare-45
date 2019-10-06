@@ -102,7 +102,6 @@ position = Vector2( 319.5, 103.956 )
 
 [node name="End" parent="MovingPlatfrom/Pos" index="1"]
 position = Vector2( 215.827, 104.704 )
-
 [connection signal="dead" from="Player" to="." method="player_death"]
 [connection signal="upgrade_player" from="Collectibles/Collectible1" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectibles/Collectible2" to="." method="upgrade_game"]
