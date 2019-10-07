@@ -199,16 +199,16 @@ process_material = SubResource( 13 )
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
 emitting = false
-amount = 150
-visibility_rect = Rect2( -100, -100, 5000, 5000 )
+amount = 3000
+visibility_rect = Rect2( -150, -300, 1000, 500 )
 process_material = SubResource( 18 )
 
 [node name="BackGround2" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
 emitting = false
-amount = 150
-visibility_rect = Rect2( -100, -100, 5000, 4000 )
+amount = 3000
+visibility_rect = Rect2( -150, -300, 1000, 500 )
 process_material = SubResource( 21 )
 texture = ExtResource( 1 )
 
