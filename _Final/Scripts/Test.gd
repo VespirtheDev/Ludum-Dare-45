@@ -57,7 +57,7 @@ func upgrade_game(id):
 		$Player.velocity.y = - 250
 		$Player.set_physics_process(true)
 		yield($Player/AnimationPlayer, "animation_finished")
-		#Music will start here bc i ran out of things to add
+		#Music will start here bc I ran out of things to add
 		#Spawn enemies
 	elif id == 4:
 		yield(get_tree().create_timer(0.2), "timeout")

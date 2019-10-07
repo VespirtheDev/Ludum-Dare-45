@@ -694,7 +694,6 @@ autoplay = "Click"
 anims/Click = SubResource( 12 )
 
 [node name="Inputs" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LeftController" type="Sprite" parent="Inputs"]
 modulate = Color( 1, 1, 1, 0 )
