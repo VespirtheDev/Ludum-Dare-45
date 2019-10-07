@@ -397,23 +397,21 @@ tile_data = PoolIntArray( -8650191, 5, 0, -6815212, 6, 0, -5766975, 5, 0, -57669
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0.00859404 )
 position = Vector2( 788.497, 655.436 )
-sprint_speed = 0.0
-crawl_speed = 0.0
-climb_speed = 0.0
-jump_speed = 150.0
-wall_jump_speed = 50.0
+run_speed = 75.0
+can_run_right = true
 
 [node name="Visual" parent="Player" index="0"]
 editor/display_folded = false
 
 [node name="LeftThigh" parent="Player/Visual" index="0"]
-position = Vector2( -5.26733, 0.976563 )
+position = Vector2( -5.26709, 0.976563 )
 
 [node name="LeftLeg" parent="Player/Visual" index="1"]
-position = Vector2( -1.51343, 9.8457 )
+position = Vector2( -1.51318, 9.8457 )
+scale = Vector2( 0.1, 0.1 )
 
 [node name="LeftArm" parent="Player/Visual" index="2"]
-position = Vector2( -3.45532, -22.7375 )
+position = Vector2( -3.45508, -22.7373 )
 
 [node name="RightThigh" parent="Player/Visual/Body" index="3"]
 visible = false
@@ -762,6 +760,7 @@ anims/Jump = SubResource( 14 )
 anims/LeftMovement = SubResource( 15 )
 anims/Right = SubResource( 16 )
 anims/Sprint = SubResource( 17 )
+
 [connection signal="dead" from="Player" to="." method="player_death"]
 [connection signal="upgrade_player" from="Collectables/Left2" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/Jump3" to="." method="upgrade_game"]

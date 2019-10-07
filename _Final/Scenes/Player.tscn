@@ -1613,4 +1613,5 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
+
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]

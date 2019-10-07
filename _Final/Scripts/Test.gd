@@ -1,10 +1,12 @@
 extends Node2D
 
 var toggled = true
+var game_started = false
 
 func _input(event):
-	if event.is_action_pressed("Start"):
+	if event.is_action_pressed("Start") and !game_started:
 		start_game()
+		game_started = true
 
 func Toggle():
 	if toggled:
