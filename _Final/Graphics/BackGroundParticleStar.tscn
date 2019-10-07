@@ -198,15 +198,17 @@ process_material = SubResource( 13 )
 [node name="BackGround1" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
-amount = 100
-visibility_rect = Rect2( -100, -100, 4000, 4000 )
+emitting = false
+amount = 150
+visibility_rect = Rect2( -100, -100, 5000, 5000 )
 process_material = SubResource( 18 )
 
 [node name="BackGround2" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
-amount = 100
-visibility_rect = Rect2( -100, -100, 4000, 4000 )
+emitting = false
+amount = 150
+visibility_rect = Rect2( -100, -100, 5000, 4000 )
 process_material = SubResource( 21 )
 texture = ExtResource( 1 )
 
