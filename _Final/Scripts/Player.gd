@@ -59,6 +59,7 @@ func set_state(new_state):
 			next_anim = "Sprint"
 		
 		"Jump":
+			play_jump_sfx()
 			$BodyCollider.disabled = false
 			next_anim = "Jump"
 		
@@ -292,7 +293,6 @@ func process_controls():
 		$Dust.emitting = true #Dust particles emits
 		velocity.y = jump_speed #Set velocity Y to jump speed
 		jump_count -= 1 #Decrease Jump count
-		play_jump_sfx()
 
 	#STATE CHECKS
 	if state == "Idle":
@@ -352,7 +352,7 @@ func can_climb():
 			return true
 	
 	return false
-	
+
 func play_jump_sfx():
 	$PlayerSFX/Jump.play(0.49)
 	yield(get_tree().create_timer(0.5), "timeout")
