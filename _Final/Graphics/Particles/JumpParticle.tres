@@ -27,4 +27,3 @@ radial_accel_random = 1.0
 scale = 2.0
 scale_random = 1.0
 color_ramp = SubResource( 2 )
-

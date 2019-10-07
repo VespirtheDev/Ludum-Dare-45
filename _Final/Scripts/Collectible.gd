@@ -17,6 +17,7 @@ signal upgrade_player
 export (int) var upgrade_id
 
 func collected(body):
+	$Pickup.play()
 	emit_signal("upgrade_player", upgrade_id)
 	$Timer.start()
 	$Anim.play("Get")

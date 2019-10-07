@@ -1,19 +1,22 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=2]
-[ext_resource path="res://Graphics/Characters/Player/PlayerLeg.png" type="Texture" id=3]
-[ext_resource path="res://Graphics/Characters/Player/PlayerArm.png" type="Texture" id=4]
-[ext_resource path="res://Graphics/Characters/Player/PlayerBody.png" type="Texture" id=5]
-[ext_resource path="res://Graphics/Characters/Player/PlayerHead.png" type="Texture" id=6]
-[ext_resource path="res://Graphics/Characters/Player/CatFace.png" type="Texture" id=7]
-[ext_resource path="res://Graphics/Characters/Player/Scarf.png" type="Texture" id=8]
-[ext_resource path="res://Graphics/Characters/Player/Boot.png" type="Texture" id=9]
-[ext_resource path="res://Graphics/Characters/Player/BootWing.png" type="Texture" id=10]
-[ext_resource path="res://Graphics/Particles/Jump1Particle.tres" type="Material" id=11]
-[ext_resource path="res://Graphics/Particles/JumpParticle.tres" type="Material" id=12]
-[ext_resource path="res://Graphics/Particles/RunningRightParticle.tres" type="Material" id=13]
-[ext_resource path="res://Graphics/Particles/RunningLeftParticle.tres" type="Material" id=14]
+[ext_resource path="res://Audio/SFX/Jumping.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SFX/Landing.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/SFX/WalkFinal.wav" type="AudioStream" id=4]
+[ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/Characters/Player/PlayerLeg.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/Characters/Player/PlayerArm.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/Characters/Player/PlayerBody.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/Characters/Player/PlayerHead.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/Characters/Player/CatFace.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/Characters/Player/Scarf.png" type="Texture" id=11]
+[ext_resource path="res://Graphics/Characters/Player/Boot.png" type="Texture" id=12]
+[ext_resource path="res://Graphics/Characters/Player/BootWing.png" type="Texture" id=13]
+[ext_resource path="res://Graphics/Particles/Jump1Particle.tres" type="Material" id=14]
+[ext_resource path="res://Graphics/Particles/JumpParticle.tres" type="Material" id=15]
+[ext_resource path="res://Graphics/Particles/RunningRightParticle.tres" type="Material" id=16]
+[ext_resource path="res://Graphics/Particles/RunningLeftParticle.tres" type="Material" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -1302,6 +1305,18 @@ wall_jump_speed = -200.0
 wall_jump_count_max = 2
 can_run_right = false
 
+[node name="PlayerSFX" type="Node" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer" parent="PlayerSFX"]
+stream = ExtResource( 2 )
+
+[node name="Landing" type="AudioStreamPlayer" parent="PlayerSFX"]
+stream = ExtResource( 3 )
+
+[node name="Walk" type="AudioStreamPlayer" parent="PlayerSFX"]
+stream = ExtResource( 4 )
+volume_db = -40.0
+
 [node name="Visual" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( -0.271877, 4.35002 )
@@ -1312,7 +1327,7 @@ visible = false
 position = Vector2( -5.2672, 0.976585 )
 rotation = -0.482318
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 offset = Vector2( 0.174332, 37.714 )
 __meta__ = {
 "_edit_ik_": true
@@ -1323,7 +1338,7 @@ visible = false
 position = Vector2( -1.51333, 9.84583 )
 rotation = -0.584895
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 3 )
+texture = ExtResource( 6 )
 offset = Vector2( -3.77505, 35.3307 )
 __meta__ = {
 "_edit_ik_": true
@@ -1334,13 +1349,13 @@ visible = false
 position = Vector2( -3.45536, -22.7376 )
 rotation = 1.67824
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 offset = Vector2( 132.2, 16.2942 )
 
 [node name="Body" type="Sprite" parent="Visual"]
 position = Vector2( 1.73758, 1.67944 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 5 )
+texture = ExtResource( 8 )
 offset = Vector2( -6.44057, -153.625 )
 __meta__ = {
 "_edit_bone_": true
@@ -1349,7 +1364,7 @@ __meta__ = {
 [node name="Head" type="Sprite" parent="Visual/Body"]
 position = Vector2( -38.7671, -254.763 )
 rotation = -0.0597519
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 offset = Vector2( -10.0856, -142.926 )
 __meta__ = {
 "_edit_bone_": true
@@ -1366,12 +1381,12 @@ __meta__ = {
 visible = false
 position = Vector2( 18.86, -131.538 )
 scale = Vector2( 1.8, 1.8 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 
 [node name="Scarf" type="Sprite" parent="Visual/Body/Head"]
 visible = false
 position = Vector2( 71.0967, -17.6248 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 
 [node name="LeftThigh" type="RemoteTransform2D" parent="Visual/Body"]
 position = Vector2( -70.0478, -7.02855 )
@@ -1410,12 +1425,12 @@ visible = false
 position = Vector2( 2.30859, 95.9734 )
 rotation = -0.384933
 scale = Vector2( 0.8, 0.9 )
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 
 [node name="BootWing" type="Sprite" parent="Visual/Body/LeftThigh/LeftLeg/BootLeft"]
 visible = false
 position = Vector2( 77.5605, -51.4897 )
-texture = ExtResource( 10 )
+texture = ExtResource( 13 )
 
 [node name="LeftArm" type="RemoteTransform2D" parent="Visual/Body"]
 position = Vector2( -51.9294, -244.17 )
@@ -1435,7 +1450,7 @@ __meta__ = {
 [node name="RightThigh" type="Sprite" parent="Visual/Body"]
 position = Vector2( 51.0267, -19.8634 )
 rotation = 0.138752
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 offset = Vector2( -7.61988, 57.6945 )
 __meta__ = {
 "_edit_bone_": true,
@@ -1452,7 +1467,7 @@ __meta__ = {
 [node name="RightLeg" type="Sprite" parent="Visual/Body/RightThigh"]
 position = Vector2( -17.4853, 79.1358 )
 rotation = -0.00230736
-texture = ExtResource( 3 )
+texture = ExtResource( 6 )
 offset = Vector2( 3.4918, 39.9547 )
 __meta__ = {
 "_edit_bone_": true
@@ -1469,18 +1484,18 @@ __meta__ = {
 visible = false
 position = Vector2( 16.8119, 101.846 )
 scale = Vector2( 0.8, 0.9 )
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 
 [node name="BootWing" type="Sprite" parent="Visual/Body/RightThigh/RightLeg/BootRight"]
 visible = false
 position = Vector2( 61.8652, -76.1836 )
-texture = ExtResource( 10 )
+texture = ExtResource( 13 )
 
 [node name="RightArm" type="Sprite" parent="Visual/Body"]
 visible = false
 position = Vector2( 62.6053, -246.755 )
 rotation = 1.77802
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 offset = Vector2( 132.2, 16.2942 )
 __meta__ = {
 "_edit_bone_": true,
@@ -1520,7 +1535,7 @@ one_shot = true
 speed_scale = 2.0
 explosiveness = 0.7
 local_coords = false
-process_material = ExtResource( 11 )
+process_material = ExtResource( 14 )
 
 [node name="Jump" type="Particles2D" parent="."]
 position = Vector2( -1.02408, 11.3587 )
@@ -1532,7 +1547,7 @@ explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 200
 local_coords = false
-process_material = ExtResource( 12 )
+process_material = ExtResource( 15 )
 
 [node name="RunningRight" type="Particles2D" parent="."]
 modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
@@ -1542,7 +1557,7 @@ emitting = false
 amount = 40
 lifetime = 0.1
 local_coords = false
-process_material = ExtResource( 13 )
+process_material = ExtResource( 16 )
 
 [node name="RunningLeft" type="Particles2D" parent="."]
 modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
@@ -1551,7 +1566,7 @@ emitting = false
 amount = 40
 lifetime = 0.1
 local_coords = false
-process_material = ExtResource( 14 )
+process_material = ExtResource( 17 )
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 visible = false
@@ -1613,5 +1628,4 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
-
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]

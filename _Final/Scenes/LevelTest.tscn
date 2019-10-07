@@ -400,7 +400,7 @@ position = Vector2( 788.497, 655.436 )
 run_speed = 75.0
 can_run_right = true
 
-[node name="Visual" parent="Player" index="0"]
+[node name="Visual" parent="Player" index="1"]
 editor/display_folded = false
 
 [node name="LeftThigh" parent="Player/Visual" index="0"]
@@ -408,7 +408,6 @@ position = Vector2( -5.26709, 0.976563 )
 
 [node name="LeftLeg" parent="Player/Visual" index="1"]
 position = Vector2( -1.51318, 9.8457 )
-scale = Vector2( 0.1, 0.1 )
 
 [node name="LeftArm" parent="Player/Visual" index="2"]
 position = Vector2( -3.45508, -22.7373 )
@@ -416,7 +415,7 @@ position = Vector2( -3.45508, -22.7373 )
 [node name="RightThigh" parent="Player/Visual/Body" index="3"]
 visible = false
 
-[node name="Camera2D" parent="Player" index="2"]
+[node name="Camera2D" parent="Player" index="3"]
 visible = true
 zoom = Vector2( 0.8, 0.8 )
 
@@ -759,7 +758,6 @@ anims/Jump = SubResource( 14 )
 anims/LeftMovement = SubResource( 15 )
 anims/Right = SubResource( 16 )
 anims/Sprint = SubResource( 17 )
-
 [connection signal="dead" from="Player" to="." method="player_death"]
 [connection signal="upgrade_player" from="Collectables/Left2" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/Jump3" to="." method="upgrade_game"]

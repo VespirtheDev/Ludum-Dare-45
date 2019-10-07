@@ -191,7 +191,7 @@ func process_controls():
 	
 	if wallslide_right or wallslide_left:
 		set_state("WallSlide")
-	
+		
 	#Wallslide Movement
 	if state == "WallSlide":
 		if facing == -1 and right and wall_jump_count > 0:
@@ -211,17 +211,26 @@ func process_controls():
 	if state == "WallSlide":
 		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
 			set_state("Fall")
-	
+			
+	if state == "Idle":
+		$PlayerSFX/Walk.stop()
+		
 	#Run & Sprint Movement
 	if right:
 		velocity.x = move_speed
 		$Visual.scale.x = -0.3
 		facing = 1
+		if $PlayerSFX/Walk.playing == true:
+			return
+		$PlayerSFX/Walk.playing = true
 	
 	if left:
 		velocity.x = -move_speed
 		$Visual.scale.x = 0.3
 		facing = -1
+		if $PlayerSFX/Walk.playing == true:
+			return
+		$PlayerSFX/Walk.playing = true
 	
 	if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
 		if not is_on_floor():
@@ -283,7 +292,8 @@ func process_controls():
 		$Dust.emitting = true #Dust particles emits
 		velocity.y = jump_speed #Set velocity Y to jump speed
 		jump_count -= 1 #Decrease Jump count
-	
+		play_jump_sfx()
+
 	#STATE CHECKS
 	if state == "Idle":
 		if velocity.x != 0:
@@ -342,6 +352,8 @@ func can_climb():
 			return true
 	
 	return false
-
-
-
+	
+func play_jump_sfx():
+	$PlayerSFX/Jump.play(0.49)
+	yield(get_tree().create_timer(0.5), "timeout")
+	$PlayerSFX/Jump.stop()
