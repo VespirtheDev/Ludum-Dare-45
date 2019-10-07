@@ -12,8 +12,6 @@ var textures = {"Player_Textures": {"Current": "empty","young": "res://assets/sp
                 "SoundFX": {"Run_Footsteps": "res://assets/audio/Sound Effects/walk_steps.ogg", "Sprint_Footsteps": "res://assets/audio/Sound Effects/run_steps.ogg", "Jump": "res://assets/audio/Sound Effects/jump.ogg", "Landing": "res://assets/audio/Sound Effects/landing.ogg", "Climbing": "res://assets/audio/Sound Effects/climbing.ogg"}
                }
 
-var immortal = false
-
 export (float) var run_speed
 export (float) var sprint_speed
 export (float) var crawl_speed
@@ -24,9 +22,9 @@ var move_speed = 130
 
 export (float) var gravity = 680
 var jump_count = 0
-var jump_count_max = 2
+export (int) var jump_count_max = 1
 var wall_jump_count = 0
-var wall_jump_count_max = 1
+export (int) var wall_jump_count_max = 1
 
 export (bool) var can_run_right = true
 export (bool) var can_run_left = false
@@ -35,9 +33,9 @@ export (bool) var can_jump = false
 export (bool) var can_crouch = false
 export (bool) var can_crawl = false
 export (bool) var can_climb = false
-export (bool) var can_interact = false
 export (bool) var slow_fall = false
-export (bool) var can_wall_jump
+export (bool) var can_wall_jump = false
+export (bool) var can_interact = false
 
 var on_ladder = false
 var facing = 1
@@ -45,11 +43,6 @@ var facing = 1
 func _ready():
 	set_state("Idle") #Changes state to Idle by default
 	set_physics_process(true)
-
-#Handles changing the player textures
-func set_sprite(new_texture):
-	$Sprite.texture = load(textures.Player_Textures[new_texture])
-	textures.Player_Textures.Current = new_texture
 
 #Handles changing the game state
 func set_state(new_state):
@@ -60,14 +53,10 @@ func set_state(new_state):
 		"Run":
 			move_speed = run_speed
 			next_anim = "Run"
-			$RunningRight.lifetime = 0.1
-			$RunningLeft.lifetime = 0.1
-			
+		
 		"Sprint":
 			move_speed = sprint_speed
 			next_anim = "Sprint"
-			$RunningRight.lifetime = 0.25
-			$RunningLeft.lifetime = 0.25
 		
 		"Jump":
 			$BodyCollider.disabled = false
@@ -93,8 +82,6 @@ func set_state(new_state):
 			next_anim = "WallSlide"
 		
 		"Hurt":
-			immortal = true
-			$ImmortalDuration.start()
 			next_anim = "Hurt"
 			velocity.y = -200
 			velocity.x = -100 * sign(velocity.x) #Sign means + or -
@@ -186,7 +173,7 @@ func process_controls():
 	var left = Input.is_action_pressed("Left") and can_run_left
 	var jump = Input.is_action_just_pressed("Jump") and can_jump()
 	var wall_jump = Input.is_action_just_pressed("Jump") and can_wall_jump()
-	var crouch = Input.is_action_pressed("Crouch") and can_crouch()
+	var crouch = Input.is_action_pressed("Crouch")
 	var sprint = Input.is_action_pressed("Sprint") and can_sprint
 	
 	var interact = Input.is_action_pressed("Interact")
@@ -196,18 +183,6 @@ func process_controls():
 	
 	var wallslide_right = Input.is_action_pressed("Right") and $RightSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
 	var wallslide_left = Input.is_action_pressed("Left") and $LeftSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
-	
-	if right and is_on_floor() and sprint:
-		$RunningRight.emitting = true
-		$RunningLeft.emitting = false
-		
-	if left and is_on_floor() and sprint:
-		$RunningLeft.emitting = true
-		$RunningRight.emitting = false
-		
-	if state == "Idle" || state == "Jump":
-		$RunningLeft.emitting = false
-		$RunningRight.emitting = false
 	#------------------------------
 	
 	if state == "Climb":
@@ -247,54 +222,41 @@ func process_controls():
 		velocity.x = -move_speed
 		$Visual.scale.x = 0.3
 		facing = -1
-		
-		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
-			if not is_on_floor():
-				if velocity.y > 100:
-					set_state("Fall")
-			else:
-				set_state("Idle")
 	
-	#Crouch Movement
-	if state in ["Crouch"] and not crouch:
-		if is_on_floor():
-			if velocity.x != 0:
-				set_state("Run")
-			elif velocity.x == 0:
-				set_state("Idle")
-		
-		elif not is_on_floor():
-			if velocity.y < 0:
-				set_state("Jump")
-			elif velocity.y > 100:
+	if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
+		if not is_on_floor():
+			if velocity.y > 100:
 				set_state("Fall")
+		else:
+			set_state("Idle")
 	
-	if crouch:
+	if crouch and not state in ["Crouch", "Crawl"] and can_crouch():
 		set_state("Crouch")
-	if not crouch:
-		if is_on_floor():
-			if velocity.x != 0:
-				set_state("Run")
+	if not crouch and state == "Crouch":
+		set_state("Idle")
 	
-	if crouch and not state in ["WallSlide", "Climb"]:
-		set_state("Crouch")
+	if state == "Crouch": #If the player is in state Crouch
+		if velocity.x != 0 and not can_crawl: #If they have velocity in X and can't crawl
+			velocity.x = 0 #Set their velocity X to 0
 	
 	#Climb Movement
-	if climb_up or climb_down:
-		set_state("Climb")
+	if climb_up or climb_down: #If the player climbs up or down
+		set_state("Climb") #Set their state to climbing
 	
-	if state == "Climb":
+	#Climbing Collision Checks
+	if state == "Climb": #If the player is in the Climb state
+		#If the FeetCheck raycast is colliding with solid ground
 		if $FeetCheck.is_colliding() and not $FeetCheck.get_collider().is_in_group("DropDown"):
-			$BodyCollider.disabled = false
-		elif not $FeetCheck.is_colliding():
-			$BodyCollider.disabled = true
+			$BodyCollider.disabled = false #Enable the the collision shape
+		elif not $FeetCheck.is_colliding(): #Otherwise if FeetCheck is not colliding
+			$BodyCollider.disabled = true #Enable the collision shape
 		
 		if $RightSideCheck.is_colliding():
 			if $RightSideCheck.get_collider().is_in_group("DropDown"):
 				$BodyCollider.disabled = true
 			elif not $RightSideCheck.get_collider().is_in_group("DropDown"):
 				$BodyCollider.disabled = false
-	
+		
 		if $LeftSideCheck.is_colliding():
 			if $LeftSideCheck.get_collider().is_in_group("DropDown"):
 				$BodyCollider.disabled = true
@@ -309,20 +271,20 @@ func process_controls():
 		if not can_climb():
 			set_state("Fall")
 	
+	#If the player is jumping in the state Jump or Fall
 	if jump and state in ["Jump", "Fall"]:
-		set_state("Jump")
-		$Jump.emitting = true
-		velocity.y = jump_speed * 0.85
-		jump_count -= 1
+		set_state("Jump") #Set state to Jump
+		velocity.y = jump_speed * 0.85 #Set Y Velocity
+		jump_count -= 1 #Decrease jump count by 1
 	
-	#Jump Movement
+	#If the player jumps and is not in state Jump or Fall
 	if jump and not state in ["Jump", "Fall"]:
-		set_state("Jump")
-		$Dust.emitting = true
-		velocity.y = jump_speed
-		jump_count -= 1
+		set_state("Jump") #Set the state to Jump
+		$Dust.emitting = true #Dust particles emits
+		velocity.y = jump_speed #Set velocity Y to jump speed
+		jump_count -= 1 #Decrease Jump count
 	
-	#State Checks
+	#STATE CHECKS
 	if state == "Idle":
 		if velocity.x != 0:
 			set_state("Run")

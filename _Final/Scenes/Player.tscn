@@ -1276,16 +1276,16 @@ tracks/10/keys = {
 "values": [ Vector2( 3.44833, 14.1674 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 3.44833, 14.1674 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 7.22661, 13.9009 )
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 3.89858, 8.74267 )
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 10, 12.1809 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -1294,12 +1294,13 @@ extents = Vector2( 10, 12.1809 )
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 1 )
-run_speed = 150.0
-sprint_speed = 200.0
+sprint_speed = 175.0
 crawl_speed = 50.0
 climb_speed = 50.0
-jump_speed = -250.0
-wall_jump_speed = -100.0
+jump_speed = -265.0
+wall_jump_speed = -200.0
+wall_jump_count_max = 2
+can_run_right = false
 
 [node name="Visual" type="Node2D" parent="."]
 editor/display_folded = true
@@ -1555,7 +1556,7 @@ process_material = ExtResource( 14 )
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 visible = false
 scale = Vector2( 1.24394, 0.839417 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="ClimbDetection" type="Area2D" parent="."]
 editor/display_folded = true
@@ -1566,7 +1567,7 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbDetection"]
 position = Vector2( 0.102219, -5.55539 )
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 editor/display_folded = true
@@ -1577,14 +1578,14 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -0.0340958, -4.23034 )
-shape = SubResource( 13 )
+shape = SubResource( 12 )
 
 [node name="Interaction" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 32
 
 [node name="AreaCollider" type="CollisionShape2D" parent="Interaction"]
-shape = SubResource( 14 )
+shape = SubResource( 13 )
 disabled = true
 
 [node name="ImmortalDuration" type="Timer" parent="."]

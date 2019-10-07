@@ -11,3 +11,7 @@ func Toggle():
 		emit_signal("toggle", is_on)
 	$Sprite.flip_h = true
 
+
+
+func _on_Lever_area_entered(area):
+	Toggle()
