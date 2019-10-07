@@ -25,3 +25,4 @@ position = Vector2( 200, 0 )
 
 [node name="End" type="Position2D" parent="Pos"]
 position = Vector2( -200, 0 )
+

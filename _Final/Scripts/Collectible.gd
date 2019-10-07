@@ -20,6 +20,7 @@ func collected(body):
 	emit_signal("upgrade_player", upgrade_id)
 	$Timer.start()
 	$Anim.play("Get")
+	$AreaCollider.disabled
 
 
 func _on_Timer_timeout():
