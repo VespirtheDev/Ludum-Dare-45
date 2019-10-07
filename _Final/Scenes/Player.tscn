@@ -1,8 +1,8 @@
 [gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Audio/SFX/Jumping.wav" type="AudioStream" id=2]
-[ext_resource path="res://Audio/SFX/Landing.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/SFX/JumpingFinal.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SFX/LandingFinal.wav" type="AudioStream" id=3]
 [ext_resource path="res://Audio/SFX/WalkFinal.wav" type="AudioStream" id=4]
 [ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=5]
 [ext_resource path="res://Graphics/Characters/Player/PlayerLeg.png" type="Texture" id=6]
@@ -1309,13 +1309,15 @@ can_run_right = false
 
 [node name="Jump" type="AudioStreamPlayer" parent="PlayerSFX"]
 stream = ExtResource( 2 )
+volume_db = -19.308
 
 [node name="Landing" type="AudioStreamPlayer" parent="PlayerSFX"]
 stream = ExtResource( 3 )
+volume_db = -25.451
 
 [node name="Walk" type="AudioStreamPlayer" parent="PlayerSFX"]
 stream = ExtResource( 4 )
-volume_db = -40.0
+volume_db = -29.03
 
 [node name="Visual" type="Node2D" parent="."]
 editor/display_folded = true
@@ -1628,4 +1630,5 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
+
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]
