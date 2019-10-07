@@ -4,6 +4,7 @@ var toggled = true
 
 func _ready():
 	upgrade_game(1)
+	
 
 func Toggle():
 	if toggled:
@@ -42,7 +43,7 @@ func upgrade_game(id):
 		#Spawn enemies
 	elif id == 4:
 		$Player.can_crouch = true
-		$Background/Particles/BackGround1.emitting = true
+		$Particles/BackGround1.emitting = true
 	elif id == 5:
 		$Player.can_sprint = true
 		$LevelUpgradeAnim.play("BlanktoGrassTiles")
@@ -61,7 +62,7 @@ func upgrade_game(id):
 		$LevelUpgradeAnim.play("SpaceBackground")
 	elif id == 9:
 		$Player.can_wall_jump = true
-		$Background/Particles/BackGround2.emitting = true
+		$Particles/BackGround2.emitting = true
 		$Player/Visual/Body/Head/CatFace.show()
 	elif id == 10:
 		$Player.jump_count_max = 2

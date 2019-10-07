@@ -1516,7 +1516,6 @@ anims/Sprint = SubResource( 9 )
 visible = false
 current = true
 zoom = Vector2( 0.4, 0.4 )
-limit_top = -20
 drag_margin_h_enabled = false
 
 [node name="Dust" type="Particles2D" parent="."]
@@ -1591,5 +1590,4 @@ visible = false
 position = Vector2( 0.397507, -3.8868 )
 enabled = true
 cast_to = Vector2( -13, 0 )
-
 [connection signal="timeout" from="ImmortalDuration" to="." method="_on_ImmortalDuration_timeout"]

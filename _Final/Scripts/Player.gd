@@ -24,7 +24,7 @@ var move_speed = 130
 
 export (float) var gravity = 680
 var jump_count = 0
-var jump_count_max = 4
+var jump_count_max = 1
 var wall_jump_count = 0
 var wall_jump_count_max = 1
 

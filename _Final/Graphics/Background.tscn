@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Graphics/BG.png" type="Texture" id=1]
 [ext_resource path="res://Graphics/Space I guess.png" type="Texture" id=2]
-[ext_resource path="res://Graphics/BackGroundParticleStar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Graphics/Vignette.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/Vignette.png" type="Texture" id=3]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -123,19 +122,8 @@ texture = ExtResource( 1 )
 anims/Background = SubResource( 3 )
 anims/Blue_Particles = SubResource( 4 )
 
-[node name="Particles" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
-
-[node name="BackGround1" parent="Particles" index="3"]
-position = Vector2( 562.059, 253.388 )
-
-[node name="BackGround2" parent="Particles" index="4"]
-position = Vector2( 547.565, 273.665 )
-
 [node name="Vignette" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 507.912, 292.759 )
 scale = Vector2( 0.491692, 0.430695 )
-texture = ExtResource( 4 )
-
-[editable path="Particles"]
+texture = ExtResource( 3 )
