@@ -46,6 +46,7 @@ func _ready():
 
 #Handles changing the game state
 func set_state(new_state):
+	print(new_state)
 	match new_state: #Matches the state 
 		"Idle":
 			next_anim = "Idle"
@@ -221,17 +222,15 @@ func process_controls():
 		velocity.x = move_speed
 		$Visual.scale.x = -0.3
 		facing = 1
-		if $PlayerSFX/Walk.playing == true:
-			return
-		$PlayerSFX/Walk.playing = true
+		if $PlayerSFX/Walk.playing != true:
+			$PlayerSFX/Walk.playing = true
 	
 	if left:
 		velocity.x = -move_speed
 		$Visual.scale.x = 0.3
 		facing = -1
-		if $PlayerSFX/Walk.playing == true:
-			return
-		$PlayerSFX/Walk.playing = true
+		if $PlayerSFX/Walk.playing != true:
+			$PlayerSFX/Walk.playing = true
 	
 	if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
 		if not is_on_floor():
@@ -289,6 +288,7 @@ func process_controls():
 	
 	#If the player jumps and is not in state Jump or Fall
 	if jump and not state in ["Jump", "Fall"]:
+		print("JUMP DAMMIT")
 		set_state("Jump") #Set the state to Jump
 		$Dust.emitting = true #Dust particles emits
 		velocity.y = jump_speed #Set velocity Y to jump speed
@@ -304,7 +304,7 @@ func process_controls():
 			set_state("Idle")
 		if sprint:
 			set_state("Sprint")
-		elif not sprint and velocity.x != 0:
+		elif not sprint and velocity.x != 0 and state != "Jump":
 			set_state("Run")
 	
 	if state == "Crouch":
