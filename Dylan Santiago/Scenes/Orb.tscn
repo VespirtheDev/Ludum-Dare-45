@@ -23,7 +23,7 @@ radial_accel = 100.0
 radial_accel_random = 1.0
 tangential_accel_random = 1.0
 tangential_accel_curve = SubResource( 4 )
-damping_random = 1.0
+damping = 100.0
 angle = 720.0
 angle_random = 1.0
 scale_random = 1.0
@@ -53,7 +53,7 @@ rings = 4
 [node name="Orb" type="Spatial"]
 
 [node name="Particles" type="Particles" parent="."]
-transform = Transform( 0.999912, 0.0129014, -0.00311935, -0.012901, 0.999917, 0.000139231, 0.00312089, -9.89775e-005, 0.999995, 0, 0, 0 )
+transform = Transform( 0.9999, 0.0137977, -0.00324526, -0.0137974, 0.999905, 0.000117007, 0.00324656, -7.22191e-005, 0.999995, 0, 0, 0 )
 amount = 400
 lifetime = 0.1
 preprocess = 1.0
