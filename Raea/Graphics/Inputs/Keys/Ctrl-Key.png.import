@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tile Base.png-47782719a5bec51ebefea4e17d3eef8d.stex"
+path="res://.import/Ctrl-Key.png-39f43995ca067e59a47975d6201dfb8d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Tile Base.png"
-dest_files=[ "res://.import/Tile Base.png-47782719a5bec51ebefea4e17d3eef8d.stex" ]
+source_file="res://Graphics/Inputs/Keys/Ctrl-Key.png"
+dest_files=[ "res://.import/Ctrl-Key.png-39f43995ca067e59a47975d6201dfb8d.stex" ]
 
 [params]
 
