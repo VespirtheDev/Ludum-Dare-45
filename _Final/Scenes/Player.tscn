@@ -10,9 +10,10 @@
 [ext_resource path="res://Graphics/Characters/Player/Scarf.png" type="Texture" id=8]
 [ext_resource path="res://Graphics/Characters/Player/Boot.png" type="Texture" id=9]
 [ext_resource path="res://Graphics/Characters/Player/BootWing.png" type="Texture" id=10]
-[ext_resource path="res://Graphics/Particles/RunningRightParticle.tres" type="Material" id=11]
-[ext_resource path="res://Graphics/Particles/RunningLeftParticle.tres" type="Material" id=12]
-[ext_resource path="res://Graphics/Particles/JumpParticle.tres" type="Material" id=13]
+[ext_resource path="res://Graphics/Particles/Jump1Particle.tres" type="Material" id=11]
+[ext_resource path="res://Graphics/Particles/JumpParticle.tres" type="Material" id=12]
+[ext_resource path="res://Graphics/Particles/RunningRightParticle.tres" type="Material" id=13]
+[ext_resource path="res://Graphics/Particles/RunningLeftParticle.tres" type="Material" id=14]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -1275,19 +1276,6 @@ tracks/10/keys = {
 "values": [ Vector2( 3.44833, 14.1674 ) ]
 }
 
-[sub_resource type="ParticlesMaterial" id=10]
-emission_shape = 2
-emission_box_extents = Vector3( 1, 1, 1 )
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 1.0
-initial_velocity_random = 1.0
-angular_velocity = 1.05
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 5.0
-scale_random = 1.0
-
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 3.44833, 14.1674 )
 
@@ -1522,7 +1510,7 @@ zoom = Vector2( 0.4, 0.4 )
 drag_margin_h_enabled = false
 
 [node name="Dust" type="Particles2D" parent="."]
-position = Vector2( 0.736134, 10.7862 )
+position = Vector2( -1.28873, 11.5152 )
 rotation = -1.5708
 emitting = false
 amount = 20
@@ -1531,36 +1519,38 @@ one_shot = true
 speed_scale = 2.0
 explosiveness = 0.7
 local_coords = false
-process_material = SubResource( 10 )
-
-[node name="RunningRight" type="Particles2D" parent="."]
-modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
-position = Vector2( -1.46543, 11.7235 )
-emitting = false
-amount = 80
-lifetime = 0.25
-local_coords = false
 process_material = ExtResource( 11 )
 
-[node name="RunningLeft" type="Particles2D" parent="."]
-modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
-position = Vector2( -1.46543, 11.7235 )
-amount = 80
-lifetime = 0.25
-local_coords = false
-process_material = ExtResource( 12 )
-
 [node name="Jump" type="Particles2D" parent="."]
-position = Vector2( -1.59104, 12.3306 )
+position = Vector2( -1.02408, 11.3587 )
 emitting = false
 amount = 40
 lifetime = 0.4
-preprocess = 1.0
+one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 200
 local_coords = false
+process_material = ExtResource( 12 )
+
+[node name="RunningRight" type="Particles2D" parent="."]
+modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
+position = Vector2( -1.46543, 11.7235 )
+scale = Vector2( 3, 1 )
+emitting = false
+amount = 40
+lifetime = 0.1
+local_coords = false
 process_material = ExtResource( 13 )
+
+[node name="RunningLeft" type="Particles2D" parent="."]
+modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
+position = Vector2( -1.46543, 11.7235 )
+emitting = false
+amount = 40
+lifetime = 0.1
+local_coords = false
+process_material = ExtResource( 14 )
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 visible = false

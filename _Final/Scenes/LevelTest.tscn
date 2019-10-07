@@ -217,6 +217,7 @@ tile_data = PoolIntArray( -8650191, 5, 0, -6815212, 6, 0, -5766975, 5, 0, -57669
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
 position = Vector2( 627.947, 678.236 )
+can_jump = true
 
 [node name="TileMapGrass" type="TileMap" parent="."]
 modulate = Color( 1, 1, 1, 0 )
