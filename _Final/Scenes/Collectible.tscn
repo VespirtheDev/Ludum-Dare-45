@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Collectible.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/Collectible.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -17,6 +18,35 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1e-005, 1e-005 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.00043e-005, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.0406565, 0.0406565 ), Vector2( 0.0318763, 0.0318763 ), Vector2( 0.0219159, 0.0219159 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
 }
 
 [sub_resource type="Gradient" id=2]
@@ -50,18 +80,25 @@ color_ramp = SubResource( 3 )
 hue_variation_random = 1.0
 
 [node name="Collectible" type="Area2D"]
-scale = Vector2( 1e-005, 1e-005 )
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
 
 [node name="AreaCollider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
+rotation = 5.91533
+scale = Vector2( 0.0383054, 0.0383054 )
+texture = ExtResource( 2 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "idle"
 anims/Get = SubResource( 5 )
+anims/idle = SubResource( 6 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 60
