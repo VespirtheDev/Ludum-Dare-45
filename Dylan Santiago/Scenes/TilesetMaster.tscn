@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Graphics/Tile Base.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/Tileset/Tile Base.png" type="Texture" id=1]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 296.749, 296.682 )
@@ -17,3 +18,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tile Base/StaticBody2D"]
 shape = SubResource( 1 )
+

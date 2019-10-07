@@ -24,7 +24,7 @@ var move_speed = 130
 
 export (float) var gravity = 680
 var jump_count = 0
-var jump_count_max = 2
+var jump_count_max = 4
 var wall_jump_count = 0
 var wall_jump_count_max = 1
 
@@ -62,7 +62,7 @@ func set_state(new_state):
 		
 		"Sprint":
 			move_speed = sprint_speed
-			next_anim = "Run"
+			next_anim = "Sprint"
 		
 		"Jump":
 			$BodyCollider.disabled = false
@@ -85,7 +85,7 @@ func set_state(new_state):
 			next_anim = "Crawl"
 		
 		"WallSlide":
-			next_anim = "Fall"
+			next_anim = "WallSlide"
 		
 		"Hurt":
 			immortal = true
@@ -96,20 +96,21 @@ func set_state(new_state):
 			set_state("Dead")
 		
 		"Dead":
-			emit_signal("dead")
 			hide()
+			emit_signal("dead")
+			velocity.y = 0
 	
 	state = new_state
 
 func _physics_process(delta):
 	process_gravity(delta)
-
+	
 	process_controls() #Checks for inputs
-
+	
 	velocity = move_and_slide(velocity, Vector2(0, -1)) #Moves the player
-
+	
 	process_collisions()
-
+	
 	#Checks to see if the player should be falling down or Idleing
 	if state == "Jump":
 		if velocity.y > 0:
@@ -121,7 +122,7 @@ func _physics_process(delta):
 		jump_count = jump_count_max
 
 	#If the player's position is over 1,000 you die
-	if velocity.y > 1000:
+	if position.y > 1000:
 		set_state("Dead")
 
 	process_animation()
@@ -140,9 +141,9 @@ func process_gravity(delta):
 			gravity_mod = 500
 	
 	if state == "WallSlide":
-		if velocity.y > 0:
-			velocity.y = 0
-		velocity.y += 300 * delta #Handles gravity
+		if velocity.y > 0: #--------------------------------------------------
+			velocity.y = 0 #--------------------------------------------------
+		velocity.y += 500 * delta #Handles gravity
 	else:
 		velocity.y += (gravity + gravity_mod) * delta #Handles gravity
 
@@ -190,32 +191,11 @@ func process_controls():
 	
 	var wallslide_right = Input.is_action_pressed("Right") and $RightSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
 	var wallslide_left = Input.is_action_pressed("Left") and $LeftSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
-	
-	if wallslide_right:
-#		$WallSlide.process_material.orbit_velocity = -0.3
-		$WallSlide.emitting = true
-	if wallslide_left:
-#		$WallSlide.process_material.orbit_velocity = 0.3
-		$WallSlide.emitting = true
-		
-	if not wallslide_right or not wallslide_left:
-		$WallSlide.emitting = false
 	#------------------------------
 	
 	if state == "Climb":
 		velocity.y = 0
 	velocity.x = 0
-	
-	#Run & Sprint Movement
-	if right:
-		velocity.x = move_speed
-		$Visual.scale.x = -0.3
-		facing = 1
-	
-	if left:
-		velocity.x = -move_speed
-		$Visual.scale.x = 0.3
-		facing = -1
 	
 	if wallslide_right or wallslide_left:
 		set_state("WallSlide")
@@ -228,16 +208,33 @@ func process_controls():
 			velocity.y = wall_jump_speed
 			wall_jump_count -= 1
 			return
+		
 		if facing == 1 and left and wall_jump_count > 0:
 			set_state("Jump")
 			velocity.x = -move_speed
 			velocity.y = wall_jump_speed
 			wall_jump_count -= 1 
 			return
+	
+	if state == "WallSlide":
+		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
+			set_state("Fall")
+	
+	#Run & Sprint Movement
+	if right:
+		velocity.x = move_speed
+		$Visual.scale.x = -0.3
+		facing = 1
+	
+	if left:
+		velocity.x = -move_speed
+		$Visual.scale.x = 0.3
+		facing = -1
 		
 		if not $RightSideCheck.is_colliding() and not $LeftSideCheck.is_colliding():
 			if not is_on_floor():
-				set_state("Fall")
+				if velocity.y > 100:
+					set_state("Fall")
 			else:
 				set_state("Idle")
 	
@@ -252,7 +249,7 @@ func process_controls():
 		elif not is_on_floor():
 			if velocity.y < 0:
 				set_state("Jump")
-			elif velocity.y > 0:
+			elif velocity.y > 100:
 				set_state("Fall")
 	
 	if crouch:
@@ -297,18 +294,15 @@ func process_controls():
 	
 	if jump and state in ["Jump", "Fall"]:
 		set_state("Jump")
-		velocity.y = jump_speed / 1.5
+		velocity.y = jump_speed * 0.85
 		jump_count -= 1
-		$DoubleJump.emitting = true
-		yield(get_tree().create_timer(0.2), "timeout")
-		$DoubleJump.emitting = false
 	
 	#Jump Movement
 	if jump and not state in ["Jump", "Fall"]:
 		set_state("Jump")
+		$Dust.emitting = true
 		velocity.y = jump_speed
 		jump_count -= 1
-		print(jump_count)
 	
 	#State Checks
 	if state == "Idle":
@@ -361,14 +355,13 @@ func can_crouch():
 	return false
 
 func can_climb():
-	var collisions = $ClimbDetection.get_overlapping_areas()
-	
-	if collisions.size() > 0:
-		return true
+	if can_climb:
+		var collisions = $ClimbDetection.get_overlapping_areas()
+		
+		if collisions.size() > 0:
+			return true
 	
 	return false
 
-func _on_ImmortalDuration_timeout():
-	immortal = false
 
 

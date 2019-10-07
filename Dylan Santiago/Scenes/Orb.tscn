@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=2]
+
+[sub_resource type="Gradient" id=1]
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="CurveTexture" id=3]
+
+[sub_resource type="CurveTexture" id=4]
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 0.35
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+linear_accel_random = 1.0
+radial_accel = 100.0
+radial_accel_random = 1.0
+tangential_accel_random = 1.0
+tangential_accel_curve = SubResource( 4 )
+damping_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale_random = 1.0
+scale_curve = SubResource( 3 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="GradientTexture" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+params_line_width = 0.1
+params_point_size = 0.1
+params_billboard_mode = 3
+params_billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 0.266667, 1 )
+albedo_texture = SubResource( 6 )
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 4
+
+[node name="Orb" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 0.999912, 0.0129014, -0.00311935, -0.012901, 0.999917, 0.000139231, 0.00312089, -9.89775e-005, 0.999995, 0, 0, 0 )
+amount = 400
+lifetime = 0.1
+preprocess = 1.0
+speed_scale = 0.15
+explosiveness = 0.06
+fixed_fps = 240
+fract_delta = false
+local_coords = false
+draw_order = 1
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 8 )
