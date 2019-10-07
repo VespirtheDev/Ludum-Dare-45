@@ -162,7 +162,7 @@ value = 0.0
 editor/display_folded = true
 
 [node name="Vignette" parent="Background" index="2"]
-position = Vector2( 505.474, 300.922 )
+position = Vector2( 507.626, 312.602 )
 
 [node name="LevelUpgradeAnim" type="AnimationPlayer" parent="."]
 anims/AutoTile = SubResource( 1 )
@@ -250,11 +250,14 @@ position = Vector2( 1273.97, 675.536 )
 upgrade_id = 4
 
 [node name="Sprint5" parent="Collectables" instance=ExtResource( 8 )]
-position = Vector2( 784.723, 541.397 )
+position = Vector2( 786.186, 547.737 )
 upgrade_id = 5
 
+[node name="Sprite" parent="Collectables/Sprint5" index="1"]
+position = Vector2( 0, -0.306641 )
+
 [node name="Particles2D" parent="Collectables/Sprint5" index="3"]
-position = Vector2( 1.54749, -13.1542 )
+position = Vector2( 1.54749, -1.1673 )
 
 [node name="LadderClimb6" parent="Collectables" instance=ExtResource( 8 )]
 editor/display_folded = true

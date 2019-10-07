@@ -80,7 +80,6 @@ color_ramp = SubResource( 3 )
 hue_variation_random = 1.0
 
 [node name="Collectible" type="Area2D"]
-scale = Vector2( 1e-005, 1e-005 )
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )

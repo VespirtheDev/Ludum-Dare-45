@@ -128,6 +128,7 @@ flag_disable_z = true
 gravity = Vector3( 0, 8, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
+angular_velocity = 0.000169926
 orbit_velocity = 0.01
 orbit_velocity_random = 1.0
 linear_accel = 0.5
@@ -198,7 +199,7 @@ process_material = SubResource( 13 )
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
 amount = 100
-visibility_rect = Rect2( -100, -100, 2000, 1000 )
+visibility_rect = Rect2( -100, -100, 4000, 4000 )
 process_material = SubResource( 18 )
 
 [node name="BackGround2" type="Particles2D" parent="."]
@@ -208,3 +209,4 @@ amount = 100
 visibility_rect = Rect2( -100, -100, 2000, 1000 )
 process_material = SubResource( 21 )
 texture = ExtResource( 1 )
+
