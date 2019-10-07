@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Audio/SFX/Jumping.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SFX/JumpingFinal.wav" type="AudioStream" id=2]
 [ext_resource path="res://Audio/SFX/Landing.wav" type="AudioStream" id=3]
 [ext_resource path="res://Audio/SFX/WalkFinal.wav" type="AudioStream" id=4]
 [ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=5]
@@ -1309,6 +1309,7 @@ can_run_right = false
 
 [node name="Jump" type="AudioStreamPlayer" parent="PlayerSFX"]
 stream = ExtResource( 2 )
+volume_db = -20.0
 
 [node name="Landing" type="AudioStreamPlayer" parent="PlayerSFX"]
 stream = ExtResource( 3 )

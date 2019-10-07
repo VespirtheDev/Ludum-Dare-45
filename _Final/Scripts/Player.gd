@@ -354,6 +354,4 @@ func can_climb():
 	return false
 
 func play_jump_sfx():
-	$PlayerSFX/Jump.play(0.49)
-	yield(get_tree().create_timer(0.5), "timeout")
-	$PlayerSFX/Jump.stop()
+	$PlayerSFX/Jump.play()
