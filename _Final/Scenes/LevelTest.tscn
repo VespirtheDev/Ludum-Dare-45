@@ -408,6 +408,7 @@ position = Vector2( -5.26709, 0.976563 )
 
 [node name="LeftLeg" parent="Player/Visual" index="1"]
 position = Vector2( -1.51318, 9.8457 )
+scale = Vector2( 0.1, 0.1 )
 
 [node name="LeftArm" parent="Player/Visual" index="2"]
 position = Vector2( -3.45508, -22.7373 )
@@ -753,6 +754,7 @@ texture = ExtResource( 15 )
 hframes = 2
 
 [node name="InputAnim" type="AnimationPlayer" parent="Inputs"]
+playback_speed = 2.0
 anims/Crouch = SubResource( 13 )
 anims/Jump = SubResource( 14 )
 anims/LeftMovement = SubResource( 15 )

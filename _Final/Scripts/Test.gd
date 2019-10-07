@@ -42,6 +42,7 @@ func upgrade_game(id):
 		yield(get_tree().create_timer(1), "timeout")
 		$Player/Visual/Body/RightThigh.show()
 		$Inputs/InputAnim.play("Right")
+		yield($Inputs/InputAnim, "animation_finished")
 		$Player.set_physics_process(true)
 	elif id == 2:
 		$Player.can_run_left = true
@@ -49,6 +50,7 @@ func upgrade_game(id):
 		$Player/Visual/LeftThigh.show()
 		$Player/Visual/LeftLeg.show()
 		$Inputs/InputAnim.play("LeftMovement")
+		yield($Inputs/InputAnim, "animation_finished")
 	elif id == 3:
 		$Player.set_physics_process(false)
 		$Player.can_jump = true
@@ -66,7 +68,7 @@ func upgrade_game(id):
 		$Particles/BackGround1.emitting = true
 		$Player/AnimationPlayer.play("Crouch")
 		$Inputs/InputAnim.play("Crouch")
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield($Inputs/InputAnim, "animation_finished")
 		$Player.set_physics_process(true)
 	elif id == 5:
 		yield(get_tree().create_timer(1), "timeout")
@@ -77,7 +79,7 @@ func upgrade_game(id):
 		$Player/Visual/Body/LeftThigh/LeftLeg/BootLeft.show()
 		$Player/AnimationPlayer.play("Sprint")
 		$Inputs/InputAnim.play("Sprint")
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield($Inputs/InputAnim, "animation_finished")
 		$Player.set_physics_process(true)
 	elif id == 6:
 		$Player.set_physics_process(false)
@@ -86,7 +88,7 @@ func upgrade_game(id):
 		$LevelUpgradeAnim.play("Vignette")
 		$Player/AnimationPlayer.play("Climb")
 		$Inputs/InputAnim.play("Climb")
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield($Inputs/InputAnim, "animation_finished")
 		$Player.set_physics_process(true)
 	elif id == 7:
 		$Player.can_interact = true
