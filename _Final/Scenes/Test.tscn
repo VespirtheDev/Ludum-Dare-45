@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scenes/Test.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Test.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player (2).tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Ladder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Graphics/Tileset/Test.tres" type="TileSet" id=4]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Graphics/Particles/Fog.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Graphics/Particles/Particles.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/MovingPlatfrom.tscn" type="PackedScene" id=8]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "Death"

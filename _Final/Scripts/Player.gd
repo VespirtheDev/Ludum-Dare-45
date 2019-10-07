@@ -35,6 +35,7 @@ export (bool) var can_jump = false
 export (bool) var can_crouch = false
 export (bool) var can_crawl = false
 export (bool) var can_climb = false
+export (bool) var can_interact = false
 export (bool) var slow_fall = false
 export (bool) var can_wall_jump
 
@@ -59,10 +60,14 @@ func set_state(new_state):
 		"Run":
 			move_speed = run_speed
 			next_anim = "Run"
-		
+			$RunningRight.lifetime = 0.25
+			$RunningLeft.lifetime = 0.25
+			
 		"Sprint":
 			move_speed = sprint_speed
 			next_anim = "Sprint"
+			$RunningRight.lifetime = 0.5
+			$RunningLeft.lifetime = 0.5
 		
 		"Jump":
 			$BodyCollider.disabled = false
@@ -191,6 +196,18 @@ func process_controls():
 	
 	var wallslide_right = Input.is_action_pressed("Right") and $RightSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
 	var wallslide_left = Input.is_action_pressed("Left") and $LeftSideCheck.is_colliding() and not is_on_floor() and can_wall_jump
+	
+	if right and is_on_floor():
+		$RunningRight.emitting = true
+		$RunningLeft.emitting = false
+		
+	if left and is_on_floor():
+		$RunningLeft.emitting = true
+		$RunningRight.emitting = false
+		
+	if state == "Idle" || state == "Jump":
+		$RunningLeft.emitting = false
+		$RunningRight.emitting = false
 	#------------------------------
 	
 	if state == "Climb":
@@ -296,6 +313,9 @@ func process_controls():
 		set_state("Jump")
 		velocity.y = jump_speed * 0.85
 		jump_count -= 1
+		$Jump.emitting = true
+		yield(get_tree().create_timer(.1), "timeout")
+		$Jump.emitting = false
 	
 	#Jump Movement
 	if jump and not state in ["Jump", "Fall"]:

@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;  //Specifies the shader type (canvas_item) is for 2D textures.
+
+//uniform vec3 color = vec3(0.039, 0.484, 0.273);  //Green
+uniform vec3 color = vec3(1, 1, 1);  //White
+//Field variable within a shader \"uniform\" to set in game scripts. \"vec4\" means a color has 4 values R, G, B, Alpha(opacity).
+    //To get a color you take its rgb value and divide by 256 to get your number for a vec4.
+	//Shader language does not have random function (have to make one).
+	//Deciding alpha value with rand function.
+	//\"fract\" takes the fractional value of the float so instead of 5.25 it is .25(always stays between 0 and 1).
+uniform int OCTAVES = 4;
+	
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(56, 78)) * 1000.0) * 1000.0);   //Random function that takes in coordinates and returns a float value according to the coordinates that every pixel gets a different value.
+}
+  //\"floor\" is opposit of \"fract\", instead of 5.25 it is 5(always and integer).
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+	
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+	
+	vec2 cubic = f * f * (5.0 - 4.0 * f);
+	
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+  //\"fbm\" Is a factorial brownian motion (shape that has infinite detail).
+float fbm(vec2 coord){
+	float value = 0.0;
+	float scale = 0.5;
+	
+	for(int i = 0; i < OCTAVES; i++){
+		value += noise(coord) * scale;
+		coord *= 2.0;
+		scale *= 0.5;	
+	}
+	return value;
+}
+
+void fragment() {  //Function the shader calls to decide what color to render
+	vec2 coord = UV * 10.0;
+	
+	vec2 motion = vec2( fbm(coord + vec2(TIME * -0.5, TIME * 0.5)) );
+	
+	float final = fbm(coord - motion);
+
+	COLOR = vec4(color, final * 1.0);  //\"COLOR\" in caps is constant in shader language.
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color = Vector3( 1, 1, 1 )
+shader_param/OCTAVES = 4
+
+[node name="Fog" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.0470588 )
+material = SubResource( 2 )
+position = Vector2( 327.241, 313.272 )
+scale = Vector2( 8.66527, 8.66527 )
+texture = ExtResource( 1 )

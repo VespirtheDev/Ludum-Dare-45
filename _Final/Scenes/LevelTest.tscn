@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://Scenes/Test.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Test.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Graphics/BackGroundParticleStar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Graphics/BG.png" type="Texture" id=4]
@@ -173,14 +173,7 @@ anims/SpaceBackground = SubResource( 5 )
 anims/Vignette = SubResource( 6 )
 
 [node name="Particles" parent="." instance=ExtResource( 3 )]
-
-[node name="BackGround1" parent="Particles" index="3"]
-emitting = false
-amount = 3000
-
-[node name="BackGround2" parent="Particles" index="4"]
-emitting = false
-amount = 3000
+editor/display_folded = true
 
 [node name="WhiteBG" type="Sprite" parent="."]
 visible = false
@@ -464,7 +457,6 @@ position = Vector2( 627.545, 677.844 )
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1699.79, 118.778 )
 zoom = Vector2( 3, 2 )
-
 [connection signal="dead" from="Player" to="." method="player_death"]
 [connection signal="upgrade_player" from="Collectables/Left2" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/Jump3" to="." method="upgrade_game"]
