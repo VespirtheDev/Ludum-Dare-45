@@ -111,7 +111,7 @@ color_ramp = SubResource( 12 )
 offsets = PoolRealArray( 0, 0.0307692, 1 )
 colors = PoolColorArray( 0.0195313, 1, 0.885101, 1, 0, 1, 0.859375, 0.892308, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=20]
+[sub_resource type="GradientTexture" id=15]
 gradient = SubResource( 14 )
 
 [sub_resource type="Curve" id=16]
@@ -121,14 +121,14 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 12.4175 ), 0.0, 0.0, 0,
 [sub_resource type="CurveTexture" id=17]
 curve = SubResource( 16 )
 
-[sub_resource type="ParticlesMaterial" id=19]
+[sub_resource type="ParticlesMaterial" id=18]
 emission_shape = 2
-emission_box_extents = Vector3( 200, 100, 100 )
+emission_box_extents = Vector3( 2000, 1000, 1000 )
 flag_disable_z = true
 gravity = Vector3( 0, 8, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
-angular_velocity = 0.0
+angular_velocity = 0.000169926
 orbit_velocity = 0.01
 orbit_velocity_random = 1.0
 linear_accel = 0.5
@@ -140,24 +140,23 @@ tangential_accel_random = 1.0
 scale = 0.2
 scale_random = 1.0
 scale_curve = SubResource( 17 )
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 15 )
 hue_variation = -1.0
 
-[sub_resource type="Gradient" id=23]
+[sub_resource type="Gradient" id=19]
 offsets = PoolRealArray( 0, 0.0307692, 1 )
 colors = PoolColorArray( 0.0195313, 1, 0.885101, 1, 1, 1, 1, 0.892308, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=24]
-gradient = SubResource( 23 )
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 19 )
 
-[sub_resource type="ParticlesMaterial" id=22]
+[sub_resource type="ParticlesMaterial" id=21]
 emission_shape = 2
-emission_box_extents = Vector3( 200, 100, 100 )
+emission_box_extents = Vector3( 2000, 1000, 1000 )
 flag_disable_z = true
 gravity = Vector3( 0, 8, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
-angular_velocity = 0.0
 orbit_velocity = 0.01
 orbit_velocity_random = 1.0
 linear_accel = 0.5
@@ -169,7 +168,7 @@ tangential_accel_random = 1.0
 scale = 0.1
 scale_random = 1.0
 scale_curve = SubResource( 17 )
-color_ramp = SubResource( 24 )
+color_ramp = SubResource( 20 )
 hue_variation = -1.0
 
 [node name="Particles" type="Node2D"]
@@ -199,12 +198,17 @@ process_material = SubResource( 13 )
 [node name="BackGround1" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
-amount = 100
-process_material = SubResource( 19 )
+emitting = false
+amount = 3000
+visibility_rect = Rect2( -150, -300, 1000, 500 )
+process_material = SubResource( 18 )
 
 [node name="BackGround2" type="Particles2D" parent="."]
 position = Vector2( 502.451, 298.889 )
 scale = Vector2( 3, 3 )
-amount = 100
-process_material = SubResource( 22 )
+emitting = false
+amount = 3000
+visibility_rect = Rect2( -150, -300, 1000, 500 )
+process_material = SubResource( 21 )
 texture = ExtResource( 1 )
+

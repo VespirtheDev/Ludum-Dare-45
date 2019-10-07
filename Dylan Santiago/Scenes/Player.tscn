@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Characters/Player/PlayerThigh.png" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Graphics/Characters/Player/Scarf.png" type="Texture" id=8]
 [ext_resource path="res://Graphics/Characters/Player/Boot.png" type="Texture" id=9]
 [ext_resource path="res://Graphics/Characters/Player/BootWing.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/Particles/RunningRightParticle.tres" type="Material" id=11]
+[ext_resource path="res://Graphics/Particles/RunningLeftParticle.tres" type="Material" id=12]
+[ext_resource path="res://Graphics/Particles/JumpParticle.tres" type="Material" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -1294,16 +1297,26 @@ extents = Vector2( 7.22661, 13.9009 )
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 3.89858, 8.74267 )
 
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 10, 12.1809 )
+
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 1 )
+run_speed = 150.0
+sprint_speed = 200.0
+crawl_speed = 50.0
+climb_speed = 50.0
+jump_speed = -250.0
+wall_jump_speed = -100.0
 
 [node name="Visual" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -0.271877, 4.35002 )
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( -0.3, 0.3 )
 
 [node name="LeftThigh" type="Sprite" parent="Visual"]
 visible = false
@@ -1506,7 +1519,6 @@ anims/Sprint = SubResource( 9 )
 visible = false
 current = true
 zoom = Vector2( 0.4, 0.4 )
-limit_top = -20
 drag_margin_h_enabled = false
 
 [node name="Dust" type="Particles2D" parent="."]
@@ -1520,6 +1532,35 @@ speed_scale = 2.0
 explosiveness = 0.7
 local_coords = false
 process_material = SubResource( 10 )
+
+[node name="RunningRight" type="Particles2D" parent="."]
+modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
+position = Vector2( -1.46543, 11.7235 )
+emitting = false
+amount = 80
+lifetime = 0.25
+local_coords = false
+process_material = ExtResource( 11 )
+
+[node name="RunningLeft" type="Particles2D" parent="."]
+modulate = Color( 0.623529, 0.623529, 0.623529, 1 )
+position = Vector2( -1.46543, 11.7235 )
+amount = 80
+lifetime = 0.25
+local_coords = false
+process_material = ExtResource( 12 )
+
+[node name="Jump" type="Particles2D" parent="."]
+position = Vector2( -1.59104, 12.3306 )
+emitting = false
+amount = 40
+lifetime = 0.4
+preprocess = 1.0
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 200
+local_coords = false
+process_material = ExtResource( 13 )
 
 [node name="BodyCollider" type="CollisionShape2D" parent="."]
 visible = false
@@ -1548,11 +1589,19 @@ collision_mask = 16
 position = Vector2( -0.0340958, -4.23034 )
 shape = SubResource( 13 )
 
+[node name="Interaction" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="AreaCollider" type="CollisionShape2D" parent="Interaction"]
+shape = SubResource( 14 )
+disabled = true
+
 [node name="ImmortalDuration" type="Timer" parent="."]
 
 [node name="HeadCheck" type="RayCast2D" parent="."]
 visible = false
-position = Vector2( -0.150616, -15.5143 )
+position = Vector2( -1.25507, -5.10087 )
 enabled = true
 cast_to = Vector2( 0, -4 )
 

@@ -4,6 +4,7 @@ var toggled = true
 
 func _ready():
 	upgrade_game(1)
+	
 
 func Toggle():
 	if toggled:
@@ -30,37 +31,38 @@ func player_death():
 func upgrade_game(id):
 	if id == 1:
 		$Player.can_run_right = true
-		#$LevelUpgradeAnim.play("ShowWhiteBackground")
+		$LevelUpgradeAnim.play("BlackLineGround")
 	elif id == 2:
 		$Player.can_run_left = true
-		#$LevelUpgradeAnim.play("BlackLineGround")
+		$LevelUpgradeAnim.play("AutoTile")
 		$Player/Visual/LeftThigh.show()
 		$Player/Visual/LeftLeg.show()
 	elif id == 3:
 		$Player.can_jump = true
-		#$LevelUpgradeAnim.play("Autotile")
+		#Music will start here bc i ran out of things to add
 		#Spawn enemies
 	elif id == 4:
 		$Player.can_crouch = true
-		#$LevelUpgradeAnim.play("BlanktoGrassTiles")
+		$Particles/BackGround1.emitting = true
 	elif id == 5:
 		$Player.can_sprint = true
-		#$LevelUpgradeAnim.play("ActivateParticles")
+		$LevelUpgradeAnim.play("BlanktoGrassTiles")
 		$Player/Visual/Body/RightThigh/RightLeg/BootRight.show()
 		$Player/Visual/Body/LeftThigh/LeftLeg/BootLeft.show()
 	elif id == 6:
 		$Player.can_climb = true
 		$Player/Visual/Body/RightArm.show()
+		$LevelUpgradeAnim.play("Vignette")
 	elif id == 7:
 		$Player.can_interact = true
-		#$LevelUpgradeAnim.play("SpaceBackground")
+		$LevelUpgradeAnim.play("ShowDecor")
 		$Player/Visual/LeftArm.show()
 	elif id == 8:
 		$Player.can_crawl = true
-		#$LevelUpgradeAnim.play("ShowDecor")
+		$LevelUpgradeAnim.play("SpaceBackground")
 	elif id == 9:
 		$Player.can_wall_jump = true
-		#$LevelUpgradeAnim.play("ShowParallax")
+		$Particles/BackGround2.emitting = true
 		$Player/Visual/Body/Head/CatFace.show()
 	elif id == 10:
 		$Player.jump_count_max = 2
