@@ -250,9 +250,11 @@ position = Vector2( 1273.97, 675.536 )
 upgrade_id = 4
 
 [node name="Sprint5" parent="Collectables" instance=ExtResource( 8 )]
-editor/display_folded = true
-position = Vector2( 787.044, 586.276 )
+position = Vector2( 784.723, 541.397 )
 upgrade_id = 5
+
+[node name="Particles2D" parent="Collectables/Sprint5" index="3"]
+position = Vector2( 1.54749, -13.1542 )
 
 [node name="LadderClimb6" parent="Collectables" instance=ExtResource( 8 )]
 editor/display_folded = true
@@ -269,13 +271,14 @@ editor/display_folded = true
 position = Vector2( 3169.86, 355.301 )
 upgrade_id = 8
 
-[node name="DoubleJuimp10" parent="Collectables" instance=ExtResource( 8 )]
-position = Vector2( 2533.29, 379.897 )
-upgrade_id = 10
-
 [node name="WallJump11" parent="Collectables" instance=ExtResource( 8 )]
 editor/display_folded = true
 position = Vector2( 2340.02, -122.119 )
+upgrade_id = 9
+
+[node name="DoubleJuimp10" parent="Collectables" instance=ExtResource( 8 )]
+editor/display_folded = true
+position = Vector2( 2533.29, 379.897 )
 upgrade_id = 10
 
 [node name="MovingPlatfrom" parent="." instance=ExtResource( 9 )]
@@ -465,8 +468,8 @@ zoom = Vector2( 3, 2 )
 [connection signal="upgrade_player" from="Collectables/LadderClimb6" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/Lever7" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/Crawling8" to="." method="upgrade_game"]
-[connection signal="upgrade_player" from="Collectables/DoubleJuimp10" to="." method="upgrade_game"]
 [connection signal="upgrade_player" from="Collectables/WallJump11" to="." method="upgrade_game"]
+[connection signal="upgrade_player" from="Collectables/DoubleJuimp10" to="." method="upgrade_game"]
 
 [editable path="Background"]
 
@@ -486,9 +489,9 @@ zoom = Vector2( 3, 2 )
 
 [editable path="Collectables/Crawling8"]
 
-[editable path="Collectables/DoubleJuimp10"]
-
 [editable path="Collectables/WallJump11"]
+
+[editable path="Collectables/DoubleJuimp10"]
 
 [editable path="MovingPlatfrom"]
 
