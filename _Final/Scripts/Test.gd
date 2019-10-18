@@ -3,6 +3,8 @@ extends Node2D
 var toggled = true
 var game_started = false
 
+export (PackedScene) var credits
+
 func _input(event):
 	if event.is_action_pressed("Start") and !game_started:
 		start_game()
@@ -118,4 +120,5 @@ func upgrade_game(id):
 		#$LevelUpgradeAnim.play("HugeStarReveal")
 		$Player/Visual/Body/Head/Scarf.show()
 
-
+func end_game(body):
+	get_tree().change_scene_to(credits)

@@ -1,0 +1,334 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Scenes/Credits.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Graphics/BG.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/Space I guess.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/Vignette.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/Credits/Dylan.jpg" type="Texture" id=6]
+[ext_resource path="res://Graphics/Credits/Santa Claus.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Graphics/Credits/Paul.jpg" type="Texture" id=8]
+[ext_resource path="res://Graphics/Credits/Rae.jpg" type="Texture" id=9]
+[ext_resource path="res://Graphics/Credits/tony.jpg" type="Texture" id=10]
+[ext_resource path="res://Graphics/Credits/Zach.jpg" type="Texture" id=11]
+[ext_resource path="res://Graphics/Credits/Mike.jpg" type="Texture" id=12]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// Gonkee's water shader for Godot 3 - full tutorial https://youtu.be/uhMAHpV_cDg
+// If you use this shader, I would prefer if you gave credit to me and my channel
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+	
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+	
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+	
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+	
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+	
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+	
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+	
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+	
+	color = mix(color, vec4(1.0), near_top);
+	
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+	
+	if(near_top > edge_lower){
+		color.a = 0.0;
+		
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+	
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/blue_tint = Color( 0.45098, 0.384314, 0.694118, 0 )
+shader_param/sprite_scale = Vector2( 10, 10 )
+shader_param/scale_x = 0.67
+
+[sub_resource type="Animation" id=3]
+resource_name = "Background"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureProgress:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Blue_Particles"
+
+[sub_resource type="Animation" id=5]
+resource_name = "Credits"
+length = 9.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Paul:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1627.48, 487.981 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Zach:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1, 5.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1637.48, 487.981 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rae:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1666.48, 487.981 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Dylan:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1647.48, 487.981 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("tony:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 4, 7.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1687.48, 487.981 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Mike:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 5, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -612.522, 487.981 ), Vector2( 1641.22, 483.777 ) ]
+}
+
+[sub_resource type="DynamicFont" id=6]
+size = 100
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[node name="Credits" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
+
+[node name="Shader" type="Sprite" parent="Background/TextureProgress" index="1"]
+material = SubResource( 2 )
+position = Vector2( 1046.39, 731.344 )
+scale = Vector2( 1.03125, 1.00657 )
+texture = ExtResource( 3 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Background"]
+margin_left = -16.0
+margin_top = -23.0
+margin_right = 2084.0
+margin_bottom = 1477.0
+rect_scale = Vector2( 0.7, 0.6 )
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+editor/display_folded = true
+anims/Background = SubResource( 3 )
+anims/Blue_Particles = SubResource( 4 )
+
+[node name="Vignette" type="Sprite" parent="Background"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 507.626, 312.602 )
+scale = Vector2( 0.491692, 0.430695 )
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Credits"
+playback_speed = 0.4
+anims/Credits = SubResource( 5 )
+
+[node name="Dylan" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1647.48, 487.981 )
+texture = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="Dylan"]
+margin_left = -199.024
+margin_top = -236.473
+margin_right = 196.976
+margin_bottom = 345.527
+custom_fonts/font = SubResource( 6 )
+text = "Dylan
+
+
+ARTIST | Coder"
+align = 1
+
+[node name="Paul" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1627.48, 487.981 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Paul"]
+margin_left = -80.8958
+margin_top = -239.898
+margin_right = 101.104
+margin_bottom = 342.102
+custom_fonts/font = SubResource( 6 )
+text = "PAUL
+
+
+ARTIST"
+align = 1
+
+[node name="Rae" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1666.48, 487.981 )
+texture = ExtResource( 9 )
+
+[node name="Label3" type="Label" parent="Rae"]
+margin_left = -181.457
+margin_top = -236.473
+margin_right = 214.543
+margin_bottom = 345.527
+custom_fonts/font = SubResource( 6 )
+text = "RAE
+
+
+CODER"
+align = 1
+
+[node name="tony" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1687.48, 487.981 )
+texture = ExtResource( 10 )
+
+[node name="Label3" type="Label" parent="tony"]
+margin_left = -211.681
+margin_top = -236.473
+margin_right = 185.319
+margin_bottom = 345.527
+custom_fonts/font = SubResource( 6 )
+text = "TONY
+
+
+Manager | SFX"
+align = 1
+
+[node name="Zach" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1637.48, 487.981 )
+texture = ExtResource( 11 )
+
+[node name="Label3" type="Label" parent="Zach"]
+margin_left = -191.17
+margin_top = -236.473
+margin_right = 204.83
+margin_bottom = 345.527
+custom_fonts/font = SubResource( 6 )
+text = "ZACH
+
+
+ARTIST"
+align = 1
+
+[node name="Mike" type="Sprite" parent="."]
+position = Vector2( 1641.22, 483.777 )
+texture = ExtResource( 12 )
+
+[node name="Label3" type="Label" parent="Mike"]
+margin_left = -191.17
+margin_top = -236.473
+margin_right = 204.83
+margin_bottom = 345.527
+custom_fonts/font = SubResource( 6 )
+text = "Mike
+
+
+Level Designer"
+align = 1
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="Background"]
